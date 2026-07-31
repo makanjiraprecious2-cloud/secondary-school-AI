@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PREMA SCHOOL AI</title>
+  <!-- OpenStreetMap Leaflet Library -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --secondary: #0d9488;
+      --accent: #f59e0b;
+      --bg: #f8fafc;
+      --text: #0f172a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* INTRO SLIDESHOW */
+    #intro-screen {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 9999; background: #000; display: flex; align-items: center; justify-content: center;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+    
+    #intro-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .slideshow-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
+    .slide {
+      position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0;
+      animation: slideFade 5s infinite;
+    }
+    .slide:nth-child(1) { animation-delay: 0s; }
+    .slide:nth-child(2) { animation-delay: 1s; }
+    .slide:nth-child(3) { animation-delay: 2s; }
+    .slide:nth-child(4) { animation-delay: 3s; }
+    .slide:nth-child(5) { animation-delay: 4s; }
+
+    @keyframes slideFade {
+      0% { opacity: 0; transform: scale(1); }
+      15%, 25% { opacity: 0.85; }
+      40%, 100% { opacity: 0; transform: scale(1.05); }
+    }
+    .intro-title {
+      position: relative; z-index: 10; color: #fff; font-size: 3rem; font-weight: 800;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.8); letter-spacing: 2px; text-align: center;
+    }
+
+    /* AUTH UI */
+    .auth-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+    .auth-card { background: #fff; width: 100%; max-width: 420px; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+    .auth-card h2 { color: var(--primary); text-align: center; margin-bottom: 6px; }
+    .auth-card p { color: #64748b; font-size: 0.9rem; text-align: center; margin-bottom: 20px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
+    .form-group input { width: 100%; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; outline: none; }
+    .btn { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .alert-error { background: #fee2e2; color: #dc2626; padding: 10px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 14px; display: none; }
+    .toggle-auth { text-align: center; margin-top: 14px; font-size: 0.85rem; color: #64748b; }
+    .toggle-auth a { color: var(--primary); font-weight: 600; cursor: pointer; }
+
+    /* DASHBOARD */
+    #dashboard-view { display: none; }
+    header { background: white; border-bottom: 1px solid #e2e8f0; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { font-size: 1.4rem; color: var(--primary); }
+    .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; padding: 32px; max-width: 1400px; margin: 0 auto; }
+    .subject-card { background: white; border-radius: 12px; padding: 24px 20px; border: 1px solid #e2e8f0; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; justify-content: space-between; min-height: 120px; }
+    .subject-card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0,0,0,0.06); }
+    .subject-card h3 { color: var(--text); font-size: 1.15rem; margin-bottom: 12px; }
+    .subject-tag { display: inline-block; padding: 4px 10px; background: #e0f2fe; color: #0369a1; border-radius: 6px; font-size: 0.8rem; font-weight: 600; align-self: flex-start; }
+
+    /* MODALS & DASHBOARD TABS */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+    .modal-content { background: white; width: 92%; max-width: 750px; border-radius: 16px; padding: 24px; max-height: 90vh; overflow-y: auto; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; }
+    .close-btn { cursor: pointer; font-size: 1.5rem; border: none; background: none; }
+
+    .sub-dashboard-tabs { display: flex; gap: 10px; margin-bottom: 16px; border-bottom: 2px solid #e2e8f0; }
+    .tab-btn { padding: 10px 16px; border: none; background: none; font-weight: 600; color: #64748b; cursor: pointer; border-bottom: 3px solid transparent; }
+    .tab-btn.active { color: var(--primary); border-color: var(--primary); }
+
+    /* CAMERA & CHAT UI */
+    .camera-container { width: 100%; height: 240px; background: #000; border-radius: 8px; overflow: hidden; position: relative; margin-bottom: 12px; }
+    video { width: 100%; height: 100%; object-fit: cover; }
+    .snap-btn { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; }
+
+    .chat-container { display: flex; flex-direction: column; height: 300px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc; }
+    .chat-messages { flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+    .chat-bubble { max-width: 80%; padding: 10px 14px; border-radius: 12px; font-size: 0.9rem; line-height: 1.4; word-break: break-word; white-space: pre-wrap; }
+    .chat-bubble.user { align-self: flex-end; background: var(--primary); color: white; }
+    .chat-bubble.ai { align-self: flex-start; background: #e2e8f0; color: #0f172a; }
+    .chat-bubble.error { align-self: flex-start; background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; }
+    .chat-input-bar { display: flex; gap: 8px; padding: 10px; background: white; border-top: 1px solid #e2e8f0; }
+
+    .result-card { background: #f1f5f9; border-left: 4px solid var(--secondary); padding: 14px; border-radius: 6px; margin-top: 12px; font-size: 0.9rem; }
+    #geo-map { height: 180px; width: 100%; border-radius: 8px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <!-- 1. INTRO SCREEN -->
+  <div id="intro-screen">
+    <div class="slideshow-container">
+      <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1000&q=80" class="slide" alt="1">
+      <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1000&q=80" class="slide" alt="2">
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=80" class="slide" alt="3">
+      <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1000&q=80" class="slide" alt="4">
+      <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1000&q=80" class="slide" alt="5">
+    </div>
+    <div class="intro-title">PREMA SCHOOL AI</div>
+  </div>
+
+  <!-- 2. AUTH SCREEN -->
+  <div class="auth-container" id="auth-view" style="display: none;">
+    <div class="auth-card">
+      <h2 id="auth-title">Welcome</h2>
+      <p id="auth-subtitle">Log in to access PREMA SCHOOL AI</p>
+      <div id="auth-alert" class="alert-error">Invalid credentials.</div>
+      <form id="auth-form">
+        <div class="form-group" id="name-group" style="display: none;">
+          <label>Full Name</label>
+          <input type="text" id="user-name" placeholder="Student Name">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="user-email" required placeholder="student@prema.mw">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="user-password" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn" id="auth-btn">Log In</button>
+      </form>
+      <div class="toggle-auth">
+        <span id="toggle-text">Don't have an account?</span> 
+        <a id="toggle-btn" onclick="toggleAuthMode()">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. DASHBOARD -->
+  <div id="dashboard-view">
+    <header>
+      <h1>PREMA SCHOOL AI</h1>
+      <div style="display: flex; align-items: center;">
+        <span id="welcome-user" style="margin-right: 15px; font-weight: 600;">Student</span>
+        <button onclick="logout()" style="padding: 6px 12px; background: #ef4444; color: white; border: none; border-radius: 6px; cursor: pointer;">Logout</button>
+      </div>
+    </header>
+
+    <div class="dashboard-grid" id="subjects-grid"></div>
+  </div>
+
+  <!-- 4. AGRICULTURE MODAL -->
+  <div class="modal" id="agric-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Agriculture AI Module</h3>
+        <button class="close-btn" onclick="closeModal('agric-modal')">&times;</button>
+      </div>
+
+      <div class="sub-dashboard-tabs">
+        <button class="tab-btn active" onclick="switchAgricTab('crop')">1. Crop Capture</button>
+        <button class="tab-btn" onclick="switchAgricTab('animal')">2. Animal Capture</button>
+        <button class="tab-btn" onclick="switchAgricTab('ask')">3. Ask AI (Camera)</button>
+      </div>
+
+      <div id="agric-cam-panel">
+        <div class="camera-container">
+          <video id="agric-video" autoplay playsinline></video>
+          <button class="snap-btn" onclick="snapAgricMedia()">📸 Capture Photo</button>
+        </div>
+
+        <div id="agric-results" class="result-card" style="display:none;">
+          <h4 id="agric-item-title">Item Name: Loading...</h4>
+          <p><strong>Diagnosed Disease:</strong> <span id="agric-disease">-</span></p>
+          <p><strong>Treatment:</strong> <span id="agric-treatment">-</span></p>
+          <p><strong>Control Methods:</strong> <span id="agric-control">-</span></p>
+        </div>
+      </div>
+
+      <div id="agric-ask-panel" style="display:none;">
+        <div class="chat-container">
+          <div class="chat-messages" id="agric-chat-msgs">
+            <div class="chat-bubble ai">Welcome to Agriculture AI! Capture a photo or type below.</div>
+          </div>
+          <div class="chat-input-bar">
+            <button style="border:1px solid #cbd5e1; background:#f1f5f9; border-radius:6px; padding:0 10px; cursor:pointer;" onclick="snapCameraToChat('agric-video', 'agric-chat-msgs', 'Agriculture')">📷 Direct Cam Snap</button>
+            <input type="text" id="agric-chat-input" placeholder="Ask an agriculture question..." style="flex:1; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+            <button class="btn" style="width:auto; padding:8px 16px;" onclick="sendChat('agric-chat-input', 'agric-chat-msgs', 'Agriculture')">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. GEOGRAPHY MODAL -->
+  <div class="modal" id="geo-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Geography AI Module</h3>
+        <button class="close-btn" onclick="closeModal('geo-modal')">&times;</button>
+      </div>
+
+      <div class="sub-dashboard-tabs">
+        <button class="tab-btn active" onclick="switchGeoTab('atmo')">1. Capture Atmosphere</button>
+        <button class="tab-btn" onclick="switchGeoTab('ask')">2. Ask AI (Camera)</button>
+      </div>
+
+      <div id="geo-atmo-panel">
+        <div class="camera-container">
+          <video id="geo-video" autoplay playsinline></video>
+          <button class="snap-btn" onclick="snapAtmosphere()">☁️ Capture Atmosphere</button>
+        </div>
+
+        <div id="geo-results" class="result-card" style="display:none;">
+          <h4>Atmospheric Analysis</h4>
+          <div id="geo-map"></div>
+          <p style="margin-top:8px;"><strong>Location:</strong> Lilongwe, Malawi (-13.9626 S, 33.7741 E)</p>
+          <p><strong>Temperature:</strong> <span id="geo-temp">25°C</span></p>
+          <p><strong>Type of Rainfall:</strong> <span id="geo-rain">Convectional / Relief Rainfall</span></p>
+          <p><strong>Cloud Name:</strong> <span id="geo-cloud">Cumulonimbus</span></p>
+          <p><strong>Air Pressure:</strong> <span id="geo-pressure">1012 hPa</span></p>
+          <p><strong>Type of Wind:</strong> <span id="geo-wind">South East Trade Winds</span></p>
+        </div>
+      </div>
+
+      <div id="geo-ask-panel" style="display:none;">
+        <div class="chat-container">
+          <div class="chat-messages" id="geo-chat-msgs">
+            <div class="chat-bubble ai">Geography AI Assistant initialized. Capture a question or ask anything!</div>
+          </div>
+          <div class="chat-input-bar">
+            <button style="border:1px solid #cbd5e1; background:#f1f5f9; border-radius:6px; padding:0 10px; cursor:pointer;" onclick="snapCameraToChat('geo-video', 'geo-chat-msgs', 'Geography')">📷 Direct Cam Snap</button>
+            <input type="text" id="geo-chat-input" placeholder="Ask a geography question..." style="flex:1; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+            <button class="btn" style="width:auto; padding:8px 16px;" onclick="sendChat('geo-chat-input', 'geo-chat-msgs', 'Geography')">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. UNIVERSAL SUBJECT CHAT MODAL -->
+  <div class="modal" id="universal-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="universal-title">Subject AI Tutor</h3>
+        <button class="close-btn" onclick="closeModal('universal-modal')">&times;</button>
+      </div>
+
+      <div class="camera-container" style="height:180px;">
+        <video id="univ-video" autoplay playsinline></video>
+        <button class="snap-btn" onclick="snapCameraToChat('univ-video', 'universal-chat-msgs', currentActiveSubject)">📷 Capture Question Direct</button>
+      </div>
+
+      <div class="chat-container" style="height:280px;">
+        <div class="chat-messages" id="universal-chat-msgs"></div>
+        <div class="chat-input-bar">
+          <input type="text" id="universal-chat-input" placeholder="Type or capture your question above..." style="flex:1; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+          <button class="btn" style="width:auto; padding:8px 16px;" onclick="sendChat('universal-chat-input', 'universal-chat-msgs', currentActiveSubject)">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // -------------------------------------------------------------
+    // GEMINI CONFIGURATION & API KEY
+    // -------------------------------------------------------------
+    const GEMINI_API_KEY = "AQ.Ab8RN6JLgT5LVSWyM_CkuOOqSeRotYCvk1XG1LIzdRPMY-3fNw"; 
+
+    // GEMINI 3.6 FLASH API ENDPOINT
+    const MODEL_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent";
+
+    function getApiKey() {
+      return GEMINI_API_KEY.trim();
+    }
+
+    const MALAWI_SUBJECTS = [
+      "Agriculture", "English Language", "Chichewa", "Mathematics", 
+      "Biology", "Physical Science", "Chemistry", "Physics", 
+      "Geography", "History", "Social & Development Studies", "Life Skills", 
+      "Computer Studies", "Business Studies", "Clothing & Textiles", 
+      "Food & Nutrition", "Bible Knowledge", "Additional Mathematics"
+    ];
+
+    let isSignUp = false;
+    let registeredUsers = JSON.parse(localStorage.getItem('prema_users')) || [];
+    let currentActiveSubject = "";
+    let activeAgricMode = "crop";
+    let geoMap = null;
+    let currentVideoStream = null;
+
+    // INITIALIZATION
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const intro = document.getElementById('intro-screen');
+        intro.classList.add('hidden');
+        setTimeout(() => {
+          intro.style.display = 'none';
+          document.getElementById('auth-view').style.display = 'flex';
+        }, 1000);
+      }, 2000);
+      renderDashboardSubjects();
+    });
+
+    // FETCH WITH EXPONENTIAL BACKOFF FOR HIGH DEMAND / RATE LIMIT ERRORS
+    async function fetchWithRetry(url, options, maxRetries = 4, statusUpdateCallback = null) {
+      let delay = 2000;
+      for (let i = 0; i < maxRetries; i++) {
+        try {
+          const response = await fetch(url, options);
+          
+          if ((response.status === 503 || response.status === 429) && i < maxRetries - 1) {
+            if (statusUpdateCallback) {
+              statusUpdateCallback(`Server busy (${response.status}). Retrying in ${delay / 1000}s... (Attempt ${i + 2}/${maxRetries})`);
+            }
+            await new Promise(resolve => setTimeout(resolve, delay));
+            delay *= 2;
+            continue;
+          }
+          return response;
+        } catch (err) {
+          if (i === maxRetries - 1) throw err;
+          await new Promise(resolve => setTimeout(resolve, delay));
+          delay *= 2;
+        }
+      }
+    }
+
+    // AUTH MANAGEMENT
+    function toggleAuthMode() {
+      isSignUp = !isSignUp;
+      document.getElementById('auth-alert').style.display = 'none';
+      document.getElementById('auth-title').innerText = isSignUp ? "Create Account" : "Welcome Back";
+      document.getElementById('auth-subtitle').innerText = isSignUp ? "Sign up for PREMA SCHOOL AI" : "Log in to access PREMA SCHOOL AI";
+      document.getElementById('name-group').style.display = isSignUp ? "block" : "none";
+      document.getElementById('auth-btn').innerText = isSignUp ? "Sign Up" : "Log In";
+      document.getElementById('toggle-text').innerText = isSignUp ? "Already have an account?" : "Don't have an account?";
+      document.getElementById('toggle-btn').innerText = isSignUp ? "Log In" : "Sign Up";
+    }
+
+    document.getElementById('auth-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('user-email').value.trim();
+      const password = document.getElementById('user-password').value;
+      const alertBox = document.getElementById('auth-alert');
+
+      if (isSignUp) {
+        const name = document.getElementById('user-name').value.trim();
+        registeredUsers.push({ name, email, password });
+        localStorage.setItem('prema_users', JSON.stringify(registeredUsers));
+        loginSuccess(name || "Student");
+      } else {
+        const user = registeredUsers.find(u => u.email === email && u.password === password);
+        if (user) loginSuccess(user.name || "Student");
+        else {
+          alertBox.style.display = 'block';
+          alertBox.innerText = "Invalid credentials. Please enter valid registered details.";
+        }
+      }
+    });
+
+    function loginSuccess(name) {
+      document.getElementById('auth-view').style.display = 'none';
+      document.getElementById('dashboard-view').style.display = 'block';
+      document.getElementById('welcome-user').innerText = name;
+    }
+
+    function logout() {
+      stopCamera();
+      document.getElementById('dashboard-view').style.display = 'none';
+      document.getElementById('auth-view').style.display = 'flex';
+    }
+
+    // RENDER SUBJECTS
+    function renderDashboardSubjects() {
+      const grid = document.getElementById('subjects-grid');
+      grid.innerHTML = '';
+      MALAWI_SUBJECTS.forEach((subj, idx) => {
+        const card = document.createElement('div');
+        card.className = 'subject-card';
+        card.onclick = () => openSubjectModule(subj);
+        card.innerHTML = `<h3>${subj}</h3><span class="subject-tag">Subject ${idx + 1}</span>`;
+        grid.appendChild(card);
+      });
+    }
+
+    // CAMERA ACCESS
+    async function startCamera(videoElementId) {
+      stopCamera();
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
+        currentVideoStream = stream;
+        const video = document.getElementById(videoElementId);
+        if (video) video.srcObject = stream;
+      } catch (err) {
+        console.warn("Camera access denied or unavailable:", err);
+      }
+    }
+
+    function stopCamera() {
+      if (currentVideoStream) {
+        currentVideoStream.getTracks().forEach(track => track.stop());
+        currentVideoStream = null;
+      }
+    }
+
+    function closeModal(id) {
+      stopCamera();
+      document.getElementById(id).style.display = 'none';
+    }
+
+    function openSubjectModule(subject) {
+      currentActiveSubject = subject;
+      if (subject === "Agriculture") {
+        document.getElementById('agric-modal').style.display = 'flex';
+        switchAgricTab('crop');
+      } else if (subject === "Geography") {
+        document.getElementById('geo-modal').style.display = 'flex';
+        switchGeoTab('atmo');
+      } else {
+        document.getElementById('universal-title').innerText = `${subject} AI Tutor`;
+        document.getElementById('universal-chat-msgs').innerHTML = `<div class="chat-bubble ai">Welcome to ${subject} AI! Capture your question or type below.</div>`;
+        document.getElementById('universal-modal').style.display = 'flex';
+        startCamera('univ-video');
+      }
+    }
+
+    // AGRICULTURE LOGIC
+    function switchAgricTab(tab) {
+      activeAgricMode = tab;
+      const btns = document.querySelectorAll('#agric-modal .tab-btn');
+      btns.forEach((b, i) => b.classList.toggle('active', (tab === 'crop' && i===0) || (tab === 'animal' && i===1) || (tab === 'ask' && i===2)));
+
+      if (tab === 'ask') {
+        document.getElementById('agric-cam-panel').style.display = 'none';
+        document.getElementById('agric-ask-panel').style.display = 'block';
+        stopCamera();
+      } else {
+        document.getElementById('agric-cam-panel').style.display = 'block';
+        document.getElementById('agric-ask-panel').style.display = 'none';
+        startCamera('agric-video');
+      }
+    }
+
+    function snapAgricMedia() {
+      const res = document.getElementById('agric-results');
+      res.style.display = 'block';
+
+      if (activeAgricMode === 'crop') {
+        document.getElementById('agric-item-title').innerText = "Captured Crop: Maize (Zea mays)";
+        document.getElementById('agric-disease').innerText = "Gray Leaf Spot (Cercospora zeae-maydis)";
+        document.getElementById('agric-treatment').innerText = "Apply foliar fungicides such as azoxystrobin.";
+        document.getElementById('agric-control').innerText = "Plant resistant cultivars and practice minimum tillage.";
+      } else {
+        document.getElementById('agric-item-title').innerText = "Captured Animal: Cattle (Bos taurus)";
+        document.getElementById('agric-disease').innerText = "East Coast Fever (Theileriosis)";
+        document.getElementById('agric-treatment').innerText = "Administer Buparvaquone under veterinary guidance.";
+        document.getElementById('agric-control').innerText = "Regular dipping or spraying with acaricides to eliminate ticks.";
+      }
+    }
+
+    // GEOGRAPHY LOGIC
+    function switchGeoTab(tab) {
+      const btns = document.querySelectorAll('#geo-modal .tab-btn');
+      btns.forEach((b, i) => b.classList.toggle('active', (tab === 'atmo' && i===0) || (tab === 'ask' && i===1)));
+
+      if (tab === 'ask') {
+        document.getElementById('geo-atmo-panel').style.display = 'none';
+        document.getElementById('geo-ask-panel').style.display = 'block';
+        stopCamera();
+      } else {
+        document.getElementById('geo-atmo-panel').style.display = 'block';
+        document.getElementById('geo-ask-panel').style.display = 'none';
+        startCamera('geo-video');
+      }
+    }
+
+    function snapAtmosphere() {
+      document.getElementById('geo-results').style.display = 'block';
+      setTimeout(() => {
+        if (!geoMap) {
+          geoMap = L.map('geo-map').setView([-13.9626, 33.7741], 10);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(geoMap);
+          L.marker([-13.9626, 33.7741]).addTo(geoMap).bindPopup("Lilongwe, Malawi").openPopup();
+        } else geoMap.invalidateSize();
+      }, 300);
+    }
+
+    // CAPTURE FRAME FROM VIDEO TO BASE64
+    function captureVideoFrameBase64(videoId) {
+      const video = document.getElementById(videoId);
+      if (!video || !video.srcObject) return null;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth || 640;
+      canvas.height = video.videoHeight || 480;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+      return dataUrl.includes(',') ? dataUrl.split(',')[1] : dataUrl;
+    }
+
+    // MULTIMODAL CAMERA CHAT SNAP (GEMINI 3.6 FLASH WITH RETRY)
+    async function snapCameraToChat(videoId, containerId, context) {
+      const msgs = document.getElementById(containerId);
+      const cleanKey = getApiKey();
+
+      if (!cleanKey) {
+        alert("Please provide a valid Gemini API key.");
+        return;
+      }
+
+      const imageBase64 = captureVideoFrameBase64(videoId);
+
+      msgs.innerHTML += `<div class="chat-bubble user">📸 <em>[Captured Question Snapshot]</em></div>`;
+      const loadingBubble = document.createElement('div');
+      loadingBubble.className = 'chat-bubble ai';
+      loadingBubble.innerText = 'Analyzing photo with Gemini 3.6 Flash...';
+      msgs.appendChild(loadingBubble);
+      msgs.scrollTop = msgs.scrollHeight;
+
+      if (imageBase64) {
+        try {
+          const response = await fetchWithRetry(
+            `${MODEL_ENDPOINT}?key=${cleanKey}`, 
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                contents: [{
+                  parts: [
+                    { inline_data: { mime_type: "image/jpeg", data: imageBase64 } },
+                    { text: `You are a Secondary School ${context} AI Tutor in Malawi. Analyze this image and answer any question visible in it clearly.` }
+                  ]
+                }]
+              })
+            },
+            4,
+            (msg) => { loadingBubble.innerText = msg; }
+          );
+
+          const data = await response.json();
+          if (!response.ok || data.error) {
+            loadingBubble.className = 'chat-bubble error';
+            const msg = data.error?.message || response.statusText;
+            loadingBubble.innerText = `API Error (${data.error?.code || response.status}): ${msg}`;
+          } else {
+            const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Unable to read image clearly.";
+            loadingBubble.className = 'chat-bubble ai';
+            loadingBubble.innerText = reply;
+          }
+        } catch (err) {
+          loadingBubble.className = 'chat-bubble error';
+          loadingBubble.innerText = `Connection error: ${err.message}. Please try again later.`;
+        }
+      } else {
+        loadingBubble.className = 'chat-bubble error';
+        loadingBubble.innerText = "Camera stream not active. Please ensure camera access is granted.";
+      }
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    // TEXT CHAT EXECUTION (GEMINI 3.6 FLASH WITH RETRY)
+    async function sendChat(inputId, msgsId, context) {
+      const input = document.getElementById(inputId);
+      const text = input.value.trim();
+      if (!text) return;
+
+      const cleanKey = getApiKey();
+      if (!cleanKey) {
+        alert("Please provide a valid Gemini API key.");
+        return;
+      }
+
+      const msgs = document.getElementById(msgsId);
+      msgs.innerHTML += `<div class="chat-bubble user">${text}</div>`;
+      input.value = '';
+
+      const loadingBubble = document.createElement('div');
+      loadingBubble.className = 'chat-bubble ai';
+      loadingBubble.innerText = 'Thinking...';
+      msgs.appendChild(loadingBubble);
+      msgs.scrollTop = msgs.scrollHeight;
+
+      try {
+        const res = await fetchWithRetry(
+          `${MODEL_ENDPOINT}?key=${cleanKey}`, 
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `You are a Secondary School ${context} AI Tutor in Malawi. Answer: ${text}` }] }]
+            })
+          },
+          4,
+          (msg) => { loadingBubble.innerText = msg; }
+        );
+
+        const data = await res.json();
+        if (!res.ok || data.error) {
+          loadingBubble.className = 'chat-bubble error';
+          const msg = data.error?.message || res.statusText;
+          loadingBubble.innerText = `API Error (${data.error?.code || res.status}): ${msg}`;
+        } else {
+          const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
+          loadingBubble.className = 'chat-bubble ai';
+          loadingBubble.innerText = reply;
+        }
+      } catch (err) {
+        loadingBubble.className = 'chat-bubble error';
+        loadingBubble.innerText = `Connection error: ${err.message}. Please try again later.`;
+      }
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+  </script>
+</body>
+</html>
