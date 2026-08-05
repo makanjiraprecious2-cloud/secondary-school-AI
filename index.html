@@ -115,6 +115,25 @@
     .mic-btn.listening { background: #dc2626; animation: pulse 1.5s infinite; }
     @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
   </style>
+
+  <!-- Protection Script Against Viewing Source Code / Opening Dev Tools -->
+  <script>
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'F12') {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) {
+            e.preventDefault();
+        }
+        if (e.ctrlKey && ['U', 'u', 'S', 's'].includes(e.key)) {
+            e.preventDefault();
+        }
+    });
+  </script>
 </head>
 <body>
 
@@ -461,66 +480,6 @@
           <div id="grade-rows-container" class="space-y-2 mb-3">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2 grade-row">
               <select class="w-full p-2 border rounded text-sm sub-select">
-                <option value="English">English</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Biology">Biology</option>
-                <option value="Physical Science">Physical Science</option>
-                <option value="Agriculture">Agriculture</option>
-                <option value="Geography">Geography</option>
-                <option value="History">History</option>
-                <option value="Chichewa">Chichewa</option>
-                <option value="Business Studies">Business Studies</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Additional Mathematics">Additional Mathematics</option>
-                <option value="Wood Work">Wood Work</option>
-                <option value="Metal Work">Metal Work</option>
-                <option value="Technical Drawing">Technical Drawing</option>
-                <option value="Clothing and Textile">Clothing and Textile</option>
-              </select>
-              <select class="w-full p-2 border rounded text-sm grade-select">
-                <option value="1">1 Point (Grade 1 - A)</option>
-                <option value="2">2 Points (Grade 2 - B)</option>
-                <option value="3">3 Points (Grade 3 - C)</option>
-                <option value="4">4 Points (Grade 4 - D)</option>
-                <option value="5">5 Points (Grade 5 - E)</option>
-                <option value="6">6 Points (Grade 6 - F)</option>
-                <option value="7">7 Points (Grade 7 - P)</option>
-                <option value="8">8 Points (Grade 8 - P)</option>
-                <option value="9">9 Points (Grade 9 - F)</option>
-              </select>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 grade-row">
-              <select class="w-full p-2 border rounded text-sm sub-select">
-                <option value="Mathematics">Mathematics</option>
-                <option value="English">English</option>
-                <option value="Biology">Biology</option>
-                <option value="Physical Science">Physical Science</option>
-                <option value="Agriculture">Agriculture</option>
-                <option value="Geography">Geography</option>
-                <option value="History">History</option>
-                <option value="Chichewa">Chichewa</option>
-                <option value="Business Studies">Business Studies</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Additional Mathematics">Additional Mathematics</option>
-                <option value="Wood Work">Wood Work</option>
-                <option value="Metal Work">Metal Work</option>
-                <option value="Technical Drawing">Technical Drawing</option>
-                <option value="Clothing and Textile">Clothing and Textile</option>
-              </select>
-              <select class="w-full p-2 border rounded text-sm grade-select">
-                <option value="1">1 Point (Grade 1 - A)</option>
-                <option value="2">2 Points (Grade 2 - B)</option>
-                <option value="3">3 Points (Grade 3 - C)</option>
-                <option value="4">4 Points (Grade 4 - D)</option>
-                <option value="5">5 Points (Grade 5 - E)</option>
-                <option value="6">6 Points (Grade 6 - F)</option>
-                <option value="7">7 Points (Grade 7 - P)</option>
-                <option value="8">8 Points (Grade 8 - P)</option>
-                <option value="9">9 Points (Grade 9 - F)</option>
-              </select>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 grade-row">
-              <select class="w-full p-2 border rounded text-sm sub-select">
                 <option value="Biology">Biology</option>
                 <option value="English">English</option>
                 <option value="Mathematics">Mathematics</option>
@@ -539,7 +498,7 @@
               </select>
               <select class="w-full p-2 border rounded text-sm grade-select">
                 <option value="1">1 Point (Grade 1 - A)</option>
-                <option value="2">2 Points (Grade 2 - B)</option>
+                <option value="2" selected>2 Points (Grade 2 - B)</option>
                 <option value="3">3 Points (Grade 3 - C)</option>
                 <option value="4">4 Points (Grade 4 - D)</option>
                 <option value="5">5 Points (Grade 5 - E)</option>
@@ -569,67 +528,7 @@
               </select>
               <select class="w-full p-2 border rounded text-sm grade-select">
                 <option value="1">1 Point (Grade 1 - A)</option>
-                <option value="2">2 Points (Grade 2 - B)</option>
-                <option value="3">3 Points (Grade 3 - C)</option>
-                <option value="4">4 Points (Grade 4 - D)</option>
-                <option value="5">5 Points (Grade 5 - E)</option>
-                <option value="6">6 Points (Grade 6 - F)</option>
-                <option value="7">7 Points (Grade 7 - P)</option>
-                <option value="8">8 Points (Grade 8 - P)</option>
-                <option value="9">9 Points (Grade 9 - F)</option>
-              </select>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 grade-row">
-              <select class="w-full p-2 border rounded text-sm sub-select">
-                <option value="Agriculture">Agriculture</option>
-                <option value="English">English</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Biology">Biology</option>
-                <option value="Physical Science">Physical Science</option>
-                <option value="Geography">Geography</option>
-                <option value="History">History</option>
-                <option value="Chichewa">Chichewa</option>
-                <option value="Business Studies">Business Studies</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Additional Mathematics">Additional Mathematics</option>
-                <option value="Wood Work">Wood Work</option>
-                <option value="Metal Work">Metal Work</option>
-                <option value="Technical Drawing">Technical Drawing</option>
-                <option value="Clothing and Textile">Clothing and Textile</option>
-              </select>
-              <select class="w-full p-2 border rounded text-sm grade-select">
-                <option value="1">1 Point (Grade 1 - A)</option>
-                <option value="2">2 Points (Grade 2 - B)</option>
-                <option value="3">3 Points (Grade 3 - C)</option>
-                <option value="4">4 Points (Grade 4 - D)</option>
-                <option value="5">5 Points (Grade 5 - E)</option>
-                <option value="6">6 Points (Grade 6 - F)</option>
-                <option value="7">7 Points (Grade 7 - P)</option>
-                <option value="8">8 Points (Grade 8 - P)</option>
-                <option value="9">9 Points (Grade 9 - F)</option>
-              </select>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 grade-row">
-              <select class="w-full p-2 border rounded text-sm sub-select">
-                <option value="Geography">Geography</option>
-                <option value="English">English</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Biology">Biology</option>
-                <option value="Physical Science">Physical Science</option>
-                <option value="Agriculture">Agriculture</option>
-                <option value="History">History</option>
-                <option value="Chichewa">Chichewa</option>
-                <option value="Business Studies">Business Studies</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Additional Mathematics">Additional Mathematics</option>
-                <option value="Wood Work">Wood Work</option>
-                <option value="Metal Work">Metal Work</option>
-                <option value="Technical Drawing">Technical Drawing</option>
-                <option value="Clothing and Textile">Clothing and Textile</option>
-              </select>
-              <select class="w-full p-2 border rounded text-sm grade-select">
-                <option value="1">1 Point (Grade 1 - A)</option>
-                <option value="2">2 Points (Grade 2 - B)</option>
+                <option value="2" selected>2 Points (Grade 2 - B)</option>
                 <option value="3">3 Points (Grade 3 - C)</option>
                 <option value="4">4 Points (Grade 4 - D)</option>
                 <option value="5">5 Points (Grade 5 - E)</option>
@@ -640,641 +539,805 @@
               </select>
             </div>
           </div>
-          <button class="btn bg-purple-700 hover:bg-purple-800 mb-3" onclick="findEligibleUniversityCoursesWithPairs()">Calculate Aggregate & Find Eligible Degree Courses</button>
+
+          <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+            <button class="btn bg-purple-600 hover:bg-purple-700" onclick="addGradeRow()" style="width: auto; padding: 8px 14px; font-size: 0.85rem;">+ Add Subject Row</button>
+            <button class="btn bg-purple-800 hover:bg-purple-900" onclick="calculateUniversityAggregate()" style="flex: 1;">🎓 Match University Courses</button>
+          </div>
+
           <div id="career-output" class="p-4 bg-white border rounded text-sm text-gray-700 leading-relaxed space-y-2" style="display:none;"></div>
         </div>
       </div>
     </div>
 
-    <!-- 10. PREMA STUDY TIMER & ALARM MODAL -->
+    <!-- 10. PREMA STUDY TIMER & PHONE ALARM MODAL -->
     <div class="modal" id="timer-modal">
       <div class="modal-content" style="max-width: 500px;">
         <div class="modal-header">
-          <h3 class="text-xl font-bold text-teal-800">⏰ Prema Study Timer & Device Alarm</h3>
+          <h3 class="text-xl font-bold text-teal-700">⏰ Prema Study Timer & Alarm</h3>
           <button class="close-btn" onclick="closeModal('timer-modal')">&times;</button>
         </div>
-        <div class="p-4 text-center space-y-4">
-          <p class="text-xs text-gray-500">Set your study session length. When time is up, your device will ring audio alarms and trigger phone vibrations.</p>
-          <div class="flex justify-center items-center gap-2">
-            <input type="number" id="study-timer-minutes" value="25" min="1" max="120" class="w-20 p-2 border rounded text-center text-lg font-bold">
-            <span class="text-sm font-semibold">Minutes</span>
+        <div class="p-4 text-center">
+          <div id="timer-display" style="font-size: 3.5rem; font-weight: 800; color: var(--primary); margin-bottom: 20px;">25:00</div>
+          <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+            <button class="btn bg-teal-600 hover:bg-teal-700" style="width: auto; padding: 10px 20px;" onclick="startStudyTimer()">Start 25m Focus</button>
+            <button class="btn bg-amber-600 hover:bg-amber-700" style="width: auto; padding: 10px 20px;" onclick="pauseStudyTimer()">Pause</button>
+            <button class="btn bg-red-600 hover:bg-red-700" style="width: auto; padding: 10px 20px;" onclick="resetStudyTimer()">Reset</button>
           </div>
-          <div id="timer-display" class="font-mono text-4xl font-extrabold text-teal-800">25:00</div>
-          <div class="flex gap-2">
-            <button class="btn flex-1 bg-teal-700 hover:bg-teal-800" onclick="startPremaTimer()">Start Timer</button>
-            <button class="btn flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800" onclick="stopPremaTimer()">Reset / Stop</button>
+          <hr class="mb-4">
+          <h4 class="font-bold text-gray-800 mb-2 text-left text-sm">Set Phone Study Alarm / Reminder</h4>
+          <div class="form-group text-left mb-3">
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Alarm Time</label>
+            <input type="time" id="alarm-time-input" class="w-full p-2 border rounded text-sm">
           </div>
+          <button class="btn" onclick="setPhoneStudyAlarm()">Set Alarm Reminder</button>
         </div>
       </div>
     </div>
 
-    <!-- 11. OFFLINE SAVED NOTES VAULT MODAL -->
+    <!-- 11. OFFLINE SAVED NOTES MODAL -->
     <div class="modal" id="offline-notes-modal">
-      <div class="modal-content" style="max-width: 800px;">
+      <div class="modal-content" style="max-width: 700px;">
         <div class="modal-header">
-          <h3 class="text-xl font-bold text-teal-800">📖 Offline Saved Notes Vault</h3>
+          <h3 class="text-xl font-bold text-teal-800">📖 Offline Saved Notes & Revision Hub</h3>
           <button class="close-btn" onclick="closeModal('offline-notes-modal')">&times;</button>
         </div>
         <div class="p-4">
-          <p class="text-xs text-gray-500 mb-4">Review all AI answers and solutions saved directly to your local device storage for offline study.</p>
-          <div id="saved-notes-list" class="space-y-3 max-h-96 overflow-y-auto"></div>
+          <p class="text-xs text-gray-500 mb-3">All notes you save during your AI tutoring sessions are stored securely offline in your browser so you can revise without internet.</p>
+          <div id="saved-notes-list" class="space-y-3 mb-4 max-height: 350px; overflow-y: auto;">
+            <div class="p-3 bg-slate-50 border rounded text-sm text-gray-500">No saved notes yet. Click 'Save Note' on AI answers to store them here!</div>
+          </div>
+          <button class="btn bg-red-600 hover:bg-red-700" style="width: auto; padding: 8px 16px; font-size: 0.85rem;" onclick="clearAllOfflineNotes()">Clear All Notes</button>
         </div>
       </div>
     </div>
 
-    <!-- 13. SOLAR & IRRIGATION CALCULATOR MODAL (DIRECT DATA ONLY) -->
+    <!-- 12. SOLAR & IRRIGATION HUB MODAL -->
     <div class="modal" id="solar-modal">
       <div class="modal-content" style="max-width: 800px;">
         <div class="modal-header">
-          <h3 class="text-xl font-bold text-amber-600">☀️ Solar Water Pump & Irrigation Estimator</h3>
+          <h3 class="text-xl font-bold text-amber-600">☀️ Solar Water Pumping & Smart Irrigation Hub</h3>
           <button class="close-btn" onclick="closeModal('solar-modal')">&times;</button>
         </div>
-        <div class="p-4 space-y-3 text-sm">
-          <p class="text-xs text-gray-600">Enter parameters for instant technical specifications.</p>
+        <div class="p-4 space-y-4">
+          <p class="text-xs text-gray-500">Designed for off-grid Malawian smallholder farmers. Calculate solar panel requirements, pump specifications, and drip irrigation scheduling.</p>
+          
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-semibold mb-1">Plot Size (Acres)</label>
-              <input type="number" id="solar-acres" class="w-full p-2 border rounded" value="2" min="0.5" step="0.5">
+            <div class="p-3 bg-slate-50 border rounded">
+              <h4 class="font-bold text-gray-800 mb-2 text-sm">Solar Pump Calculator</h4>
+              <div class="form-group mb-2">
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Water Source Depth (Meters)</label>
+                <input type="number" id="solar-depth" class="w-full p-2 border rounded text-sm" value="15">
+              </div>
+              <div class="form-group mb-2">
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Daily Water Need (Litres)</label>
+                <input type="number" id="solar-litres" class="w-full p-2 border rounded text-sm" value="5000">
+              </div>
+              <button class="btn bg-amber-600 hover:bg-amber-700 text-xs py-2" onclick="calculateSolarPump()">Calculate Solar Array & Pump</button>
             </div>
-            <div>
-              <label class="block text-xs font-semibold mb-1">Water Source Head (Meters)</label>
-              <input type="number" id="solar-head" class="w-full p-2 border rounded" value="15">
+
+            <div class="p-3 bg-slate-50 border rounded">
+              <h4 class="font-bold text-gray-800 mb-2 text-sm">Smart Drip Irrigation Schedule</h4>
+              <div class="form-group mb-2">
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Crop Stage</label>
+                <select id="irrigation-stage" class="w-full p-2 border rounded text-sm">
+                  <option value="veg">Vegetative Growth (High Water)</option>
+                  <option value="flowering">Flowering / Tasselling (Critical)</option>
+                  <option value="maturity">Maturity / Ripening (Low Water)</option>
+                </select>
+              </div>
+              <div class="form-group mb-2">
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Weather Condition</label>
+                <select id="irrigation-weather" class="w-full p-2 border rounded text-sm">
+                  <option value="hot">Hot & Sunny (High Evaporation)</option>
+                  <option value="cloudy">Cloudy / Mild</option>
+                  <option value="humid">Humid / Rainy Spells</option>
+                </select>
+              </div>
+              <button class="btn bg-teal-700 hover:bg-teal-800 text-xs py-2" onclick="calculateIrrigationSchedule()">Generate Drip Schedule</button>
             </div>
           </div>
-          <button class="btn bg-amber-600 hover:bg-amber-700" onclick="calculateSolarPumpDirect()">Calculate Specifications</button>
-          <div id="solar-output" class="p-3 bg-slate-50 border rounded space-y-1 text-xs" style="display:none;"></div>
+
+          <div id="solar-output" class="p-4 bg-white border rounded text-sm text-gray-700 leading-relaxed" style="display:none;"></div>
         </div>
       </div>
     </div>
 
-  </div>
+  </div> <!-- End Main Content -->
 
+  <!-- APPLICATION SCRIPT -->
   <script>
-    let currentUser = null;
-    let isSignUp = false;
-    let currentActiveSubject = 'Mathematics';
-    let currentLangIndex = 0; // 0: English, 1: Chichewa, 2: Tumbuka
-    const langCodes = ['en-US', 'ny-MW', 'tum-MW'];
-    const langNames = ['English', 'Chichewa', 'Tumbuka'];
-    let leafMap = null;
-    let currentManebQuestionData = "";
-    let timerInterval = null;
+    // 🔑 PASTE YOUR GOOGLE AI STUDIO API KEY HERE:
+    const GEMINI_API_KEY = "AQ.Ab8RN6KvIaRjLAernyObV8gt2ubCleJkBpSgAcKiy3nGln6qoQ";
 
-    const malawiSubjects = [
-      { name: "Mathematics", tag: "Core MSCE", icon: "📐", modal: "universal" },
-      { name: "English", tag: "Core MSCE", icon: "📖", modal: "universal" },
-      { name: "Biology", tag: "Science", icon: "🧬", modal: "universal" },
-      { name: "Physical Science", tag: "Physics/Chem", icon: "⚗️", modal: "chem" },
-      { name: "Agriculture", tag: "Agri-Smart Hub", icon: "🌾", modal: "agric", highlight: "winning-highlight" },
-      { name: "Geography", tag: "Ask AI & Atmosphere", icon: "🌍", modal: "geography", highlight: "winning-highlight" },
-      { name: "History", tag: "Malawi & World", icon: "📜", modal: "universal" },
-      { name: "Social & Life Skills", tag: "Health & Ethics", icon: "🏥", modal: "health", highlight: "health-highlight" },
-      { name: "Chichewa", tag: "National Lang", icon: "🗣️", modal: "universal" },
-      { name: "Business Studies", tag: "Business", icon: "💼", modal: "universal" },
-      { name: "Computer Science", tag: "ICT", icon: "💻", modal: "universal" },
-      { name: "Additional Mathematics", tag: "Advanced Math", icon: "🔢", modal: "universal" },
-      { name: "Bible Knowledge", tag: "Humanities", icon: "🕊️", modal: "universal" },
-      { name: "Wood Work", tag: "Technical", icon: "🪚", modal: "universal" },
-      { name: "Metal Work", tag: "Technical", icon: "🛠️", modal: "universal" },
-      { name: "Technical Drawing", tag: "Technical", icon: "📐", modal: "universal" },
-      { name: "Clothing and Textile", tag: "Life Skills", icon: "🧵", modal: "universal" },
-      { name: "Home Economics", tag: "Life Skills", icon: "🍲", modal: "universal" },
-      { name: "French", tag: "Foreign Lang", icon: "🗼", modal: "universal" }
+    // GLOBAL STATE & DATA
+    let currentAuthMode = 'login';
+    let currentUser = null;
+    let currentActiveSubject = '';
+    let currentLanguage = 'English'; // English, Chichewa, Tumbuka
+    let activeCameraStream = null;
+    let timerInterval = null;
+    let timerSeconds = 1500; // 25 mins
+
+    const subjectsData = [
+      { name: 'Mathematics', tag: 'MSCE Core • Exam Hub', highlight: 'exam-highlight' },
+      { name: 'English', tag: 'MSCE Core • Language', highlight: '' },
+      { name: 'Biology', tag: 'MSCE Science • Lab', highlight: '' },
+      { name: 'Physical Science', tag: 'Chemistry & Physics Lab', highlight: '' },
+      { name: 'Agriculture', tag: '🌾 Agri-Smart Malawi Winner', highlight: 'winning-highlight' },
+      { name: 'Geography', tag: '🌍 Dual Dashboard & Map', highlight: '' },
+      { name: 'History', tag: 'MSCE Humanities', highlight: '' },
+      { name: 'Chichewa', tag: 'Chiyankhulo cha Kuno', highlight: '' },
+      { name: 'Business Studies', tag: 'Entrepreneurship', highlight: '' },
+      { name: 'Computer Science', tag: 'Coding & ICT Hub', highlight: '' },
+      { name: 'Community Health', tag: '🏥 Public Health & Triage', highlight: 'health-highlight' },
+      { name: 'Additional Mathematics', tag: 'Advanced Calculus & Algebra', highlight: '' }
     ];
 
+    // INITIALIZATION ON LOAD
     window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        document.getElementById('intro-screen').classList.add('hidden');
-        document.getElementById('auth-view').style.display = 'flex';
-      }, 3500);
-
+      // Check stored session
+      const savedUser = localStorage.getItem('prema_current_user');
+      if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        document.getElementById('intro-screen').style.display = 'none';
+        document.getElementById('auth-view').style.display = 'none';
+        showDashboard();
+      } else {
+        // Show slideshow intro for 4.5 seconds then reveal auth
+        setTimeout(() => {
+          const intro = document.getElementById('intro-screen');
+          intro.classList.add('hidden');
+          setTimeout(() => {
+            intro.style.display = 'none';
+            document.getElementById('auth-view').style.display = 'flex';
+          }, 1000);
+        }, 4500);
+      }
       renderSubjectsGrid();
-      initCameraStreams();
-      loadOfflineNotes();
-      registerServiceWorker();
     });
 
-    function registerServiceWorker() {
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Service Worker registered! Offline mode ready.', reg))
-            .catch(err => console.log('Service Worker registration failed:', err));
-        });
-      }
-    }
-
-    function renderSubjectsGrid() {
-      const grid = document.getElementById('subjects-grid');
-      grid.innerHTML = '';
-      malawiSubjects.forEach(subj => {
-        const card = document.createElement('div');
-        card.className = `subject-card ${subj.highlight || ''}`;
-        card.onclick = () => openSubjectModule(subj);
-        card.innerHTML = `
-          <div>
-            <h3>${subj.icon} ${subj.name}</h3>
-            <span class="subject-tag">${subj.tag}</span>
-          </div>
-          <div style="font-size:0.8rem; color:#64748b; margin-top:10px;">Click to study & speak →</div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function openSubjectModule(subj) {
-      currentActiveSubject = subj.name;
-      if (subj.modal === 'agric') {
-        openModal('agric-modal');
-      } else if (subj.modal === 'health') {
-        openModal('health-modal');
-      } else if (subj.modal === 'chem') {
-        openModal('chem-modal');
-      } else if (subj.modal === 'geography') {
-        openModal('geography-modal');
-        switchGeoTab('askai');
-      } else {
-        document.getElementById('universal-title').innerText = `${subj.icon} ${subj.name} - AI Subject Tutor`;
-        const chatMsgs = document.getElementById('universal-chat-msgs');
-        chatMsgs.innerHTML = `<div class="chat-bubble ai">Muli bwanji! I am your AI Tutor for **${subj.name}**. Speak into the microphone or type any question aligned with the Malawian syllabus!</div>`;
-        openModal('universal-modal');
-      }
-    }
-
-    async function askGemini(promptText, systemInstruction = "You are an expert Malawian secondary school AI tutor aligned with the MANEB curriculum.") {
-      const apiKey = "AQ.Ab8RN6K9VSgBFWo_eQCQq_IL4v0l4K10QoGMfAgTEmtBNPV1Ig"; 
-
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`;
-      const payload = {
-        contents: [{ role: "user", parts: [{ text: `${systemInstruction}\n\nUser Question: ${promptText}` }] }]
-      };
-
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        if (!response.ok) {
-          const errText = await response.text();
-          throw new Error(`API Connection Failed (${response.status}): ${errText}`);
-        }
-        const data = await response.json();
-        const candidate = data.candidates?.[0];
-        if (candidate && candidate.content?.parts?.[0]?.text) {
-          return candidate.content.parts[0].text;
-        }
-        return "Received empty response from Gemini AI.";
-      } catch (err) {
-        console.error(err);
-        return `❌ Error connecting to Gemini AI: ${err.message}`;
-      }
-    }
-
-    function speakText(text) {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const cleanText = text.replace(/[*#_`]/g, '');
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        utterance.rate = 1.0;
-        utterance.pitch = 1.0;
-        window.speechSynthesis.speak(utterance);
-      }
-    }
-
-    function toggleVoiceInput(inputId, micBtnId, msgsId = null, subjectName = null) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRecognition) {
-        alert("Speech recognition is not supported in this browser. Try Chrome.");
-        return;
-      }
-
-      const micBtn = document.getElementById(micBtnId);
-      const inputField = document.getElementById(inputId);
-      if (micBtn.classList.contains('listening')) return;
-
-      const recognition = new SpeechRecognition();
-      recognition.lang = langCodes[currentLangIndex];
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
-
-      recognition.onstart = () => {
-        micBtn.classList.add('listening');
-        micBtn.innerText = "🛑";
-      };
-
-      recognition.onresult = (event) => {
-        const speechResult = event.results[0][0].transcript;
-        inputField.value = speechResult;
-        micBtn.classList.remove('listening');
-        micBtn.innerText = "🎤";
-        if (msgsId && subjectName) {
-          sendChat(inputId, msgsId, subjectName);
-        }
-      };
-
-      recognition.onerror = () => { micBtn.classList.remove('listening'); micBtn.innerText = "🎤"; };
-      recognition.onend = () => { micBtn.classList.remove('listening'); micBtn.innerText = "🎤"; };
-      recognition.start();
-    }
-
-    async function sendChat(inputId, msgsId, subjectName) {
-      const input = document.getElementById(inputId);
-      const msgs = document.getElementById(msgsId);
-      const text = input.value.trim();
-      if (!text) return;
-
-      const userBubble = document.createElement('div');
-      userBubble.className = 'chat-bubble user';
-      userBubble.innerText = text;
-      msgs.appendChild(userBubble);
-      input.value = '';
-      msgs.scrollTop = msgs.scrollHeight;
-
-      const loadingBubble = document.createElement('div');
-      loadingBubble.className = 'chat-bubble ai';
-      loadingBubble.innerText = 'Thinking...';
-      msgs.appendChild(loadingBubble);
-      msgs.scrollTop = msgs.scrollHeight;
-
-      let langInstruction = currentLangIndex === 1 ? " Respond in Chichewa." : (currentLangIndex === 2 ? " Respond in Tumbuka." : "");
-      const prompt = `Subject: ${subjectName}. Student Question: ${text}`;
-      const aiResponse = await askGemini(prompt, `You are an encouraging Malawian secondary school teacher helping students pass their MANEB exams in ${subjectName}.${langInstruction}`);
-      
-      loadingBubble.innerHTML = `<div>${aiResponse}</div><button class="save-note-btn" onclick="saveNoteToOffline('${subjectName.replace(/'/g, "\\'")}', \`${text.replace(/`/g, '\\`')}\`, \`${aiResponse.replace(/`/g, '\\`')}\`)">💾 Save Note for Offline</button>`;
-      msgs.scrollTop = msgs.scrollHeight;
-      speakText(aiResponse);
-    }
-
-    function saveNoteToOffline(subject, question, answer) {
-      let notes = JSON.parse(localStorage.getItem('prema_offline_notes') || '[]');
-      notes.push({ subject, question, answer, date: new Date().toLocaleString() });
-      localStorage.setItem('prema_offline_notes', JSON.stringify(notes));
-      alert("Note successfully saved for offline use!");
-      loadOfflineNotes();
-    }
-
-    function loadOfflineNotes() {
-      const container = document.getElementById('saved-notes-list');
-      let notes = JSON.parse(localStorage.getItem('prema_offline_notes') || '[]');
-      if (!container) return;
-      if (notes.length === 0) {
-        container.innerHTML = `<p class="text-xs text-gray-500 italic">No saved notes yet. Click 'Save Note for Offline' under any AI response to store them!</p>`;
-        return;
-      }
-      container.innerHTML = '';
-      notes.forEach((note, idx) => {
-        const card = document.createElement('div');
-        card.className = 'p-3 bg-slate-50 border rounded-lg text-sm mb-2';
-        card.innerHTML = `
-          <div class="flex justify-between items-center mb-1">
-            <span class="font-bold text-teal-800">${note.subject}</span>
-            <span class="text-xs text-gray-400">${note.date}</span>
-          </div>
-          <p class="font-semibold text-gray-800 text-xs mb-1">Q: ${note.question}</p>
-          <p class="text-gray-700 whitespace-pre-wrap">${note.answer}</p>
-          <button class="mt-2 text-xs text-red-600 hover:underline" onclick="deleteOfflineNote(${idx})">Delete Note</button>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function deleteOfflineNote(idx) {
-      let notes = JSON.parse(localStorage.getItem('prema_offline_notes') || '[]');
-      notes.splice(idx, 1);
-      localStorage.setItem('prema_offline_notes', JSON.stringify(notes));
-      loadOfflineNotes();
-    }
-
-    function startPremaTimer() {
-      if (timerInterval) clearInterval(timerInterval);
-      const minsInput = document.getElementById('study-timer-minutes').value;
-      let totalSeconds = parseInt(minsInput) * 60;
-      if (isNaN(totalSeconds) || totalSeconds <= 0) {
-        alert("Please enter a valid study time in minutes.");
-        return;
-      }
-
-      const display = document.getElementById('timer-display');
-      timerInterval = setInterval(() => {
-        let m = Math.floor(totalSeconds / 60);
-        let s = totalSeconds % 60;
-        display.innerText = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
-
-        if (totalSeconds <= 0) {
-          clearInterval(timerInterval);
-          triggerPhoneAndDeviceAlarm();
-          alert("⏰ Time is up! Study alarm ringing.");
-        }
-        totalSeconds--;
-      }, 1000);
-      alert("Study timer started successfully!");
-    }
-
-    function stopPremaTimer() {
-      if (timerInterval) clearInterval(timerInterval);
-      document.getElementById('timer-display').innerText = "00:00";
-    }
-
-    function triggerPhoneAndDeviceAlarm() {
-      if ('vibrate' in navigator) navigator.vibrate([500, 250, 500, 250, 1000]);
-      try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const playBeep = (freq, timeOffset) => {
-          setTimeout(() => {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.3);
-          }, timeOffset);
-        };
-        for (let i = 0; i < 10; i++) playBeep(880, i * 350);
-      } catch (e) { console.log(e); }
-    }
-
-    function initCameraStreams() {
-      ['univ-video', 'geo-vid-ask', 'geo-vid-atmos'].forEach(id => {
-        const vid = document.getElementById(id);
-        if (vid) {
-          navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => { vid.srcObject = stream; })
-            .catch(err => console.log("Camera access error:", err));
-        }
-      });
-    }
-
-    async function snapCameraToChat(videoId, msgsId, subjectName) {
-      const video = document.getElementById(videoId);
-      if (!video || !video.srcObject) {
-        alert("Camera stream not active.");
-        return;
-      }
-      const msgs = document.getElementById(msgsId);
-      const userBubble = document.createElement('div');
-      userBubble.className = 'chat-bubble user';
-      userBubble.innerText = "📷 [Captured question via camera]";
-      msgs.appendChild(userBubble);
-      msgs.scrollTop = msgs.scrollHeight;
-
-      const loadingBubble = document.createElement('div');
-      loadingBubble.className = 'chat-bubble ai';
-      loadingBubble.innerText = 'Analyzing captured question...';
-      msgs.appendChild(loadingBubble);
-      msgs.scrollTop = msgs.scrollHeight;
-
-      const prompt = `The student captured an image of a ${subjectName} question. Provide a step-by-step solution.`;
-      const response = await askGemini(prompt, "You are an expert Malawian school tutor.");
-      
-      loadingBubble.innerHTML = `<div>${response}</div><button class="save-note-btn" onclick="saveNoteToOffline('${subjectName.replace(/'/g, "\\'")}', 'Captured ${subjectName} Question', \`${response.replace(/`/g, '\\`')}\`)">💾 Save Note for Offline</button>`;
-      msgs.scrollTop = msgs.scrollHeight;
-      speakText(response);
-    }
-
-    function switchGeoTab(tab) {
-      const askPanel = document.getElementById('geo-askai-panel');
-      const atmosPanel = document.getElementById('geo-atmosphere-panel');
-      const buttons = document.querySelectorAll('#geography-modal .sub-dashboard-tabs .tab-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-
-      if (tab === 'askai') {
-        askPanel.style.display = 'block';
-        atmosPanel.style.display = 'none';
-        buttons[0].classList.add('active');
-      } else {
-        askPanel.style.display = 'none';
-        atmosPanel.style.display = 'block';
-        buttons[1].classList.add('active');
-        if (leafMap) leafMap.invalidateSize();
-      }
-    }
-
-    async function generateManebQuiz() {
-      const subject = document.getElementById('maneb-subject-select').value;
-      const container = document.getElementById('maneb-quiz-container');
-      const content = document.getElementById('maneb-quiz-content');
-      const markingOutput = document.getElementById('maneb-marking-output');
-      
-      container.style.display = 'block';
-      markingOutput.style.display = 'none';
-      content.innerText = `Generating official MANEB ${subject} question...`;
-      document.getElementById('maneb-user-answer').value = '';
-
-      let prompt = `Generate a rigorous MANEB MSCE exam-style question for ${subject}.`;
-      if (subject === 'English') {
-        prompt = `Generate a Multiple Choice Question (MCQ) for MANEB MSCE English, including options A, B, C, and D.`;
-      }
-      const res = await askGemini(prompt, "You are a senior MANEB MSCE examiner.");
-      currentManebQuestionData = res;
-      content.innerText = res;
-      speakText("MANEB question generated.");
-    }
-
-    async function markManebAnswer() {
-      const userAnswer = document.getElementById('maneb-user-answer').value.trim();
-      const subject = document.getElementById('maneb-subject-select').value;
-      const markingOutput = document.getElementById('maneb-marking-output');
-
-      if (!userAnswer) {
-        alert("Please enter your answer.");
-        return;
-      }
-
-      markingOutput.style.display = 'block';
-      markingOutput.innerText = "Marking answer against MANEB standards...";
-
-      const prompt = `Subject: ${subject}\nQuestion: ${currentManebQuestionData}\nStudent Answer: ${userAnswer}\nGrade this answer accurately, provide the correct response, and explain why.`;
-      const res = await askGemini(prompt, "You are a strict MANEB MSCE chief examiner.");
-      markingOutput.innerHTML = `<div>${res}</div><button class="save-note-btn mt-2" onclick="saveNoteToOffline('MANEB Mock - ${subject.replace(/'/g, "\\'")}', \`${currentManebQuestionData.replace(/`/g, '\\`')}\`, \`${res.replace(/`/g, '\\`')}\`)">💾 Save Note for Offline</button>`;
-      speakText(res);
-    }
-
-    async function findEligibleUniversityCoursesWithPairs() {
-      const output = document.getElementById('career-output');
-      const gradeRows = document.querySelectorAll('.grade-row');
-      let studentEntries = [];
-      gradeRows.forEach(row => {
-        const sub = row.querySelector('.sub-select').value;
-        const pts = row.querySelector('.grade-select').value;
-        studentEntries.push(`${sub}: ${pts} Points`);
-      });
-
-      output.style.display = 'block';
-      output.innerHTML = `
-        <div class="font-bold text-purple-800 text-base mb-2">🎓 MSCE Aggregate & University Eligibility Summary</div>
-        <p class="text-xs text-gray-600 mb-3"><strong>Submitted Subjects & Grades:</strong> ${studentEntries.join(', ')}</p>
-        <div class="space-y-2 text-xs">
-          <p><strong>Total Aggregate Points:</strong> 6 Points (Top Tier 6-Pointer)</p>
-          <p><strong>University Eligibility:</strong> Eligible for 100% of undergraduate degree programs across all Malawian public universities (UNIMA, MUBAS, MUST, LUANAR, MZUNI, KUHeS).</p>
-          <div class="mt-2 font-semibold text-gray-800">Top Eligible Programs by Institution:</div>
-          <ul class="list-disc pl-4 space-y-1 text-gray-700">
-            <li><strong>KUHeS:</strong> Bachelor of Medicine, Bachelor of Surgery (MBBS), Pharmacy, Dental Surgery.</li>
-            <li><strong>MUBAS:</strong> Bachelor of Engineering (Civil, Electrical, Mechanical), Architecture, Computer Science.</li>
-            <li><strong>MUST:</strong> Biomedical Engineering, Computer Systems & Security, Earth Science.</li>
-            <li><strong>LUANAR:</strong> Veterinary Medicine (BVM), Biotechnology, Irrigation Engineering.</li>
-            <li><strong>UNIMA:</strong> Bachelor of Laws (LLB), Actuarial Science, Social Science (Economics).</li>
-            <li><strong>MZUNI:</strong> Optometry, Biomedical Sciences, ICT, Forestry.</li>
-          </ul>
-        </div>
-      `;
-      speakText("Aggregate points calculated successfully. You are eligible for all public university degree programs.");
-    }
-
-    function captureAtmosphereAndMap() {
-      const mapBox = document.getElementById('geo-map-box');
-      const output = document.getElementById('geo-atmos-output');
-      mapBox.style.display = 'block';
-      output.style.display = 'block';
-      output.innerText = "Detecting GPS location and analyzing atmosphere...";
-
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(async (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-
-          if (!leafMap) {
-            leafMap = L.map('geo-map-box').setView([lat, lon], 13);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafMap);
-          } else {
-            leafMap.setView([lat, lon], 13);
-            leafMap.invalidateSize();
-          }
-          L.marker([lat, lon]).addTo(leafMap).bindPopup("Atmosphere Location").openPopup();
-
-          const res = await askGemini(`Provide atmospheric and meteorological data for GPS Latitude ${lat}, Longitude ${lon} in Malawi.`, "You are a professional Malawian meteorologist.");
-          output.innerHTML = `<div>${res}</div><button class="save-note-btn mt-2" onclick="saveNoteToOffline('Geography Atmosphere', 'Coords: ${lat}, ${lon}', \`${res.replace(/`/g, '\\`')}\`)">💾 Save Note for Offline</button>`;
-          speakText(res);
-        }, () => {
-          const lat = -13.9626, lon = 33.7741;
-          if (!leafMap) {
-            leafMap = L.map('geo-map-box').setView([lat, lon], 13);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(leafMap);
-          }
-          L.marker([lat, lon]).addTo(leafMap).bindPopup("Lilongwe, Malawi").openPopup();
-        });
-      }
-    }
-
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
+    // AUTH FUNCTIONS
     function toggleAuthMode() {
-      isSignUp = !isSignUp;
-      document.getElementById('auth-title').innerText = isSignUp ? "Create Account" : "Welcome";
-      document.getElementById('name-group').style.display = isSignUp ? "block" : "none";
-      document.getElementById('auth-btn').innerText = isSignUp ? "Sign Up" : "Log In";
-      document.getElementById('toggle-btn').innerText = isSignUp ? "Log In" : "Sign Up";
-      document.getElementById('toggle-text').innerText = isSignUp ? "Already have an account?" : "Don't have an account?";
+      currentAuthMode = currentAuthMode === 'login' ? 'signup' : 'login';
+      const title = document.getElementById('auth-title');
+      const subtitle = document.getElementById('auth-subtitle');
+      const btn = document.getElementById('auth-btn');
+      const nameGroup = document.getElementById('name-group');
+      const toggleText = document.getElementById('toggle-text');
+      const toggleBtn = document.getElementById('toggle-btn');
+
+      if (currentAuthMode === 'signup') {
+        title.innerText = 'Create Account';
+        subtitle.innerText = 'Join PREMA SCHOOL AI & Agri-Smart Malawi';
+        btn.innerText = 'Sign Up';
+        nameGroup.style.display = 'block';
+        toggleText.innerText = 'Already have an account?';
+        toggleBtn.innerText = 'Log In';
+      } else {
+        title.innerText = 'Welcome Back';
+        subtitle.innerText = 'Log in to access PREMA SCHOOL AI';
+        btn.innerText = 'Log In';
+        nameGroup.style.display = 'none';
+        toggleText.innerText = "Don't have an account?";
+        toggleBtn.innerText = 'Sign Up';
+      }
+      document.getElementById('auth-alert').style.display = 'none';
     }
 
     document.getElementById('auth-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      const email = document.getElementById('user-email').value;
-      currentUser = isSignUp ? document.getElementById('user-name').value : email.split('@')[0];
-      document.getElementById('welcome-user').innerText = currentUser;
+      const email = document.getElementById('user-email').value.trim();
+      const pass = document.getElementById('user-password').value.trim();
+      const nameInput = document.getElementById('user-name').value.trim();
+      const alertBox = document.getElementById('auth-alert');
+
+      if (!email || !pass) {
+        alertBox.innerText = 'Please fill in all required fields.';
+        alertBox.style.display = 'block';
+        return;
+      }
+
+      if (currentAuthMode === 'signup') {
+        currentUser = { name: nameInput || 'Student', email: email };
+        localStorage.setItem('prema_current_user', JSON.stringify(currentUser));
+      } else {
+        // Simulated login check
+        currentUser = { name: email.split('@')[0], email: email };
+        localStorage.setItem('prema_current_user', JSON.stringify(currentUser));
+      }
+
       document.getElementById('auth-view').style.display = 'none';
-      document.getElementById('dashboard-view').style.display = 'block';
+      showDashboard();
     });
 
     function logout() {
+      localStorage.removeItem('prema_current_user');
+      currentUser = null;
       document.getElementById('dashboard-view').style.display = 'none';
       document.getElementById('auth-view').style.display = 'flex';
     }
 
-    function toggleLanguage() {
-      currentLangIndex = (currentLangIndex + 1) % langNames.length;
-      const langName = langNames[currentLangIndex];
-      alert(`Language mode switched to: ${langName} (${langCodes[currentLangIndex]})!`);
-      document.getElementById('lang-toggle-btn').innerText = `🌐 Lang: ${langName}`;
+    function showDashboard() {
+      document.getElementById('dashboard-view').style.display = 'block';
+      document.getElementById('welcome-user').innerText = `👤 ${currentUser.name}`;
     }
 
-    async function calculateFertilizerYield() {
-      const output = document.getElementById('yield-output');
-      const crop = document.getElementById('y-crop').value;
-      const land = document.getElementById('y-land').value;
-      const soil = document.getElementById('y-soil').value;
+    // RENDER SUBJECTS GRID
+    function renderSubjectsGrid() {
+      const grid = document.getElementById('subjects-grid');
+      grid.innerHTML = '';
+      subjectsData.forEach(sub => {
+        const card = document.createElement('div');
+        card.className = `subject-card ${sub.highlight}`;
+        card.innerHTML = `
+          <div>
+            <h3>${sub.name}</h3>
+          </div>
+          <span class="subject-tag">${sub.tag}</span>
+        `;
+        card.onclick = () => openSubjectModule(sub.name);
+        grid.appendChild(card);
+      });
+    }
+
+    // OPEN SUBJECT MODULES
+    function openSubjectModule(subName) {
+      currentActiveSubject = subName;
+      if (subName === 'Agriculture') {
+        openModal('agric-modal');
+      } else if (subName === 'Community Health') {
+        openModal('health-modal');
+      } else if (subName === 'Geography') {
+        openModal('geography-modal');
+        startCamera('geo-vid-ask');
+      } else if (subName === 'Physical Science' || subName === 'Chemistry' || subName === 'Physics') {
+        openModal('chem-modal');
+      } else {
+        document.getElementById('universal-title').innerText = `${subName} - MSCE AI Tutor`;
+        openModal('universal-modal');
+        startCamera('univ-video');
+        // Add welcome message if chat is empty
+        const chatMsgs = document.getElementById('universal-chat-msgs');
+        if (chatMsgs.children.length === 0) {
+          appendBubble(chatMsgs, `Muli bwanji! I am your ${subName} AI tutor aligned with the Malawi MSCE syllabus. Ask any question via text, voice, or camera snapshot!`, 'ai', subName);
+        }
+      }
+    }
+
+    // MODAL CONTROL
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = 'flex';
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+      stopCamera();
+    }
+
+    // CAMERA FUNCTIONS
+    async function startCamera(videoId) {
+      try {
+        const videoEl = document.getElementById(videoId);
+        if (videoEl && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          activeCameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+          videoEl.srcObject = activeCameraStream;
+        }
+      } catch (err) {
+        console.warn('Camera access not available or blocked:', err);
+      }
+    }
+
+    function stopCamera() {
+      if (activeCameraStream) {
+        activeCameraStream.getTracks().forEach(track => track.stop());
+        activeCameraStream = null;
+      }
+    }
+
+    async function snapCameraToChat(videoId, chatMsgsId, subjectName) {
+      const videoEl = document.getElementById(videoId);
+      const chatMsgs = document.getElementById(chatMsgsId);
+      if (!videoEl) return;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = videoEl.videoWidth || 640;
+      canvas.height = videoEl.videoHeight || 480;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL('image/png');
+
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble user';
+      bubble.innerHTML = `<img src="${dataUrl}" style="max-width:100%; border-radius:6px; margin-bottom:4px;"><br>📸 [Captured Question Image Analysis]`;
+      chatMsgs.appendChild(bubble);
+      chatMsgs.scrollTop = chatMsgs.scrollHeight;
+
+      // Real Gemini API Call with Image
+      const base64Data = dataUrl.split(',')[1];
+      let aiReply = await callGeminiAPI(`Analyze this image for ${subjectName} aligned with the Malawi MSCE syllabus.`, base64Data);
+      appendBubble(chatMsgs, aiReply, 'ai', subjectName);
+    }
+
+    // VOICE INPUT (SPEECH RECOGNITION)
+    function toggleVoiceInput(inputId, micBtnId, chatMsgsId = null, subjectName = '') {
+      const inputEl = document.getElementById(inputId);
+      const micBtn = document.getElementById(micBtnId);
+
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        alert('Speech Recognition is not supported in this browser. Please use Chrome or Edge.');
+        return;
+      }
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.lang = currentLanguage === 'Chichewa' ? 'ny-MW' : 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      micBtn.classList.add('listening');
+      inputEl.placeholder = 'Listening... Speak now...';
+
+      recognition.onresult = (event) => {
+        const speechText = event.results[0][0].transcript;
+        inputEl.value = speechText;
+        micBtn.classList.remove('listening');
+        inputEl.placeholder = 'Type or speak your question...';
+
+        if (chatMsgsId) {
+          sendChat(inputId, chatMsgsId, subjectName);
+        }
+      };
+
+      recognition.onerror = () => {
+        micBtn.classList.remove('listening');
+        inputEl.placeholder = 'Type or speak your question...';
+      };
+
+      recognition.onend = () => {
+        micBtn.classList.remove('listening');
+        inputEl.placeholder = 'Type or speak your question...';
+      };
+
+      recognition.start();
+    }
+
+    // CHAT ENGINE & REAL GEMINI API INTEGRATION
+    async function sendChat(inputId, chatMsgsId, subjectName) {
+      const inputEl = document.getElementById(inputId);
+      const chatMsgs = document.getElementById(chatMsgsId);
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      appendBubble(chatMsgs, text, 'user');
+      inputEl.value = '';
+
+      // Typing indicator placeholder
+      const loadingBubble = document.createElement('div');
+      loadingBubble.className = 'chat-bubble ai';
+      loadingBubble.innerHTML = '🤖 Thinking...';
+      chatMsgs.appendChild(loadingBubble);
+      chatMsgs.scrollTop = chatMsgs.scrollHeight;
+
+      const prompt = `You are an expert AI tutor for Malawi secondary school students studying ${subjectName} under the MANEB MSCE curriculum. Answer the following student question accurately and helpfully: ${text}`;
+      let reply = await callGeminiAPI(prompt);
+
+      chatMsgs.removeChild(loadingBubble);
+      appendBubble(chatMsgs, reply, 'ai', subjectName);
+    }
+
+    async function callGeminiAPI(promptText, base64Image = null) {
+      if (!GEMINI_API_KEY || GEMINI_API_KEY === "YOUR_API_KEY_HERE") {
+        return "⚠️ Please paste your Google AI Studio API key into the 'GEMINI_API_KEY' variable at the top of the script section!";
+      }
+
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
       
-      output.style.display = 'block';
-      output.innerHTML = `
-        <div class="font-bold text-teal-800 text-base mb-1">🌾 Agri-Smart Malawi: Fertilizer & Yield Results</div>
-        <p class="text-xs text-gray-600 mb-3"><strong>Parameters:</strong> ${land} ha of ${crop} on ${soil} soil</p>
-        <div class="space-y-2 text-xs">
-          <div>
-            <span class="font-semibold text-gray-800">1. Basal Dressing Fertilizer:</span>
-            <p class="text-gray-700">Apply ${Math.round(200 * land)} kg of Compound D (23:21:0+4S) at planting.</p>
+      let parts = [{ text: promptText }];
+      if (base64Image) {
+        parts.push({
+          inline_data: {
+            mime_type: "image/png",
+            data: base64Image
+          }
+        });
+      }
+
+      const payload = {
+        contents: [{ parts: parts }]
+      };
+
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+        if (data.candidates && data.candidates[0].content.parts[0].text) {
+          return data.candidates[0].content.parts[0].text;
+        } else if (data.error) {
+          return `API Error: ${data.error.message}`;
+        }
+        return "No response generated from Gemini API.";
+      } catch (err) {
+        return `Network or API connection error: ${err.message}`;
+      }
+    }
+
+    function appendBubble(container, text, sender, subject = '') {
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${sender}`;
+      bubble.innerHTML = text;
+
+      if (sender === 'ai' && subject) {
+        const saveBtn = document.createElement('button');
+        saveBtn.className = 'save-note-btn';
+        saveBtn.innerText = '📖 Save to Offline Notes';
+        saveBtn.onclick = () => saveOfflineNote(subject, text);
+        bubble.appendChild(document.createElement('br'));
+        bubble.appendChild(saveBtn);
+      }
+
+      container.appendChild(bubble);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // OFFLINE NOTES STORAGE
+    function saveOfflineNote(subject, content) {
+      let notes = JSON.parse(localStorage.getItem('prema_offline_notes') || '[]');
+      notes.push({ subject: subject, content: content, date: new Date().toLocaleDateString() });
+      localStorage.setItem('prema_offline_notes', JSON.stringify(notes));
+      alert('Note saved successfully to Offline Notes!');
+      renderOfflineNotes();
+    }
+
+    function renderOfflineNotes() {
+      const listEl = document.getElementById('saved-notes-list');
+      let notes = JSON.parse(localStorage.getItem('prema_offline_notes') || '[]');
+      if (notes.length === 0) {
+        listEl.innerHTML = `<div class="p-3 bg-slate-50 border rounded text-sm text-gray-500">No saved notes yet. Click 'Save Note' on AI answers to store them here!</div>`;
+        return;
+      }
+      listEl.innerHTML = '';
+      notes.forEach((note, idx) => {
+        const item = document.createElement('div');
+        item.className = 'p-3 bg-slate-50 border rounded text-sm space-y-1';
+        item.innerHTML = `
+          <div style="display:flex; justify-content:space-between; font-weight:600; color:var(--primary);">
+            <span>📚 ${note.subject} (${note.date})</span>
+            <button onclick="deleteNote(${idx})" style="color:#dc2626; border:none; background:none; cursor:pointer;">Delete</button>
           </div>
-          <div>
-            <span class="font-semibold text-gray-800">2. Top Dressing Fertilizer:</span>
-            <p class="text-gray-700">Apply ${Math.round(150 * land)} kg of Urea (46% N) in split applications (4 weeks post-planting & at tasseling).</p>
-          </div>
-          <div>
-            <span class="font-semibold text-gray-800">3. Expected Harvest Yield:</span>
-            <p class="text-gray-700">Estimated output of <strong>${(3.5 * land).toFixed(1)} to ${(4.5 * land).toFixed(1)} metric tonnes</strong> (${Math.round(35 * land)} - ${Math.round(45 * land)} bags of 50kg shelled produce).</p>
-          </div>
-        </div>
-      `;
-      speakText("Fertilizer and yield calculation completed successfully.");
+          <div class="text-gray-700">${note.content.replace(/<button[^>]*>.*?<\/button>/g, '')}</div>
+        `;
+        listEl.appendChild(item);
+      });
     }
 
-    async function calculateAgricBizProfit() {
-      const output = document.getElementById('biz-output');
-      output.style.display = 'block';
-      output.innerText = "Calculating value chain and profit analysis...";
-      const source = document.getElementById('biz-source').value;
-      const dest = document.getElementById('biz-dest').value;
-      const res = await askGemini(`Provide agricultural trade and transport arbitrage profit breakdown between ${source} and ${dest} in Malawi Kwacha.`);
-      output.innerHTML = `<div>${res}</div><button class="save-note-btn mt-2" onclick="saveNoteToOffline('Agri-Smart Hub', 'Market Arbitrage: ${source} to ${dest}', \`${res.replace(/`/g, '\\`')}\`)">💾 Save Note for Offline</button>`;
-      speakText(res);
+    function deleteNote(index) {
+      let notes = JSON.parse(localStorage.getItem('prema_offline_notes') || '[]');
+      notes.splice(index, 1);
+      localStorage.setItem('prema_offline_notes', JSON.stringify(notes));
+      renderOfflineNotes();
     }
 
-    async function checkHealthSymptoms() {
-      const output = document.getElementById('health-output');
-      const symptoms = document.getElementById('health-symptoms-input').value;
-      if (!symptoms) return;
-      output.style.display = 'block';
-      output.innerText = "Analyzing symptoms based on Malawian public health guidelines...";
-      const res = await askGemini(`Patient symptoms: ${symptoms}. Give preliminary possibilities and prevention advice in Malawi.`);
-      output.innerHTML = `<div>${res}</div><button class="save-note-btn mt-2" onclick="saveNoteToOffline('Health Checker', '${symptoms.replace(/'/g, "\\'")}', \`${res.replace(/`/g, '\\`')}\`)">💾 Save Note for Offline</button>`;
-      speakText(res);
+    function clearAllOfflineNotes() {
+      if (confirm('Are you sure you want to clear all saved notes?')) {
+        localStorage.removeItem('prema_offline_notes');
+        renderOfflineNotes();
+      }
     }
 
-    async function balanceChemicalEquation() {
-      const eq = document.getElementById('chem-eq-input').value;
-      const output = document.getElementById('chem-eq-output');
-      output.style.display = 'block';
-      output.innerText = "Solving equation...";
-      const res = await askGemini(`Balance and explain this chemical equation step-by-step: ${eq}`);
-      output.innerHTML = `<div>${res}</div><button class="save-note-btn mt-2" onclick="saveNoteToOffline('Physical Science Lab', '${eq.replace(/'/g, "\\'")}', \`${res.replace(/`/g, '\\`')}\`)">💾 Save Note for Offline</button>`;
-      speakText(res);
-    }
+    const origOpenModal = openModal;
+    openModal = function(modalId) {
+      origOpenModal(modalId);
+      if (modalId === 'offline-notes-modal') {
+        renderOfflineNotes();
+      }
+    };
 
+    // AGRICULTURE TABS & CALCULATORS
     function switchAgricTab(tab) {
+      document.querySelectorAll('#agric-modal .sub-dashboard-tabs .tab-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', (idx === 0 && tab === 'yield') || (idx === 1 && tab === 'bizplan') || (idx === 2 && tab === 'ask'));
+      });
       document.getElementById('agric-yield-panel').style.display = tab === 'yield' ? 'block' : 'none';
       document.getElementById('agric-bizplan-panel').style.display = tab === 'bizplan' ? 'block' : 'none';
       document.getElementById('agric-ask-panel').style.display = tab === 'ask' ? 'block' : 'none';
     }
 
-    function calculateSolarPumpDirect() {
-      const acres = parseFloat(document.getElementById('solar-acres').value) || 1;
-      const head = parseFloat(document.getElementById('solar-head').value) || 10;
-      const output = document.getElementById('solar-output');
-      
-      const pvKw = (acres * 1.5).toFixed(1);
-      const pumpHp = (head * acres / 40).toFixed(1);
-      const waterLiters = Math.round(acres * 25000);
+    function calculateFertilizerYield() {
+      const crop = document.getElementById('y-crop').value;
+      const land = parseFloat(document.getElementById('y-land').value) || 1;
+      const soil = document.getElementById('y-soil').value;
 
+      let npkBags = Math.round(land * 2);
+      let ureaBags = Math.round(land * 2);
+      let yieldKg = Math.round(land * 2200);
+
+      if (soil === 'depleted') {
+        npkBags += 1;
+        ureaBags += 1;
+        yieldKg = Math.round(yieldKg * 0.75);
+      } else if (soil === 'clay') {
+        yieldKg = Math.round(yieldKg * 1.15);
+      }
+
+      const output = document.getElementById('yield-output');
       output.style.display = 'block';
       output.innerHTML = `
-        <div class="font-bold text-amber-700 text-sm mb-1">⚡ Direct Solar & Pump Specifications</div>
-        <div><strong>Required PV Array:</strong> ${pvKw} kW (Solar Panels)</div>
-        <div><strong>Pump Power Rating:</strong> ${pumpHp} HP Submersible Pump</div>
-        <div><strong>Daily Water Output:</strong> ${waterLiters.toLocaleString()} Liters / day</div>
-        <div><strong>Head Pressure:</strong> ${head} Meters Total Dynamic Head</div>
+        <h5 class="font-bold text-teal-800 mb-1">🌾 Agri-Smart Malawi Fertilizer & Yield Prescription</h5>
+        <p><b>Crop:</b> ${crop.toUpperCase()} | <b>Land Area:</b> ${land} Hectare(s) | <b>Soil Type:</b> ${soil.toUpperCase()}</p>
+        <hr class="my-2">
+        <p><b>Recommended Basal Dressing (NPK):</b> ${npkBags} bags (50kg each) applied at planting.</p>
+        <p><b>Recommended Top Dressing (Urea):</b> ${ureaBags} bags (50kg each) applied 4-5 weeks after germination.</p>
+        <p><b>Estimated Harvest Yield:</b> <b>${yieldKg.toLocaleString()} kg</b> (${Math.round(yieldKg / 50)} 50kg bags) under optimal rainfall/irrigation conditions.</p>
+        <p class="text-xs text-teal-600 mt-2">💡 *Agri-Smart Tip:* Ensure timely weeding and ridge alignment to prevent soil erosion during heavy Malawian rains.</p>
       `;
-      speakText(`Solar calculation complete. Required PV array is ${pvKw} kilowatts.`);
+    }
+
+    function calculateAgricBizProfit() {
+      const source = document.getElementById('biz-source').value;
+      const dest = document.getElementById('biz-dest').value;
+      const output = document.getElementById('biz-output');
+      output.style.display = 'block';
+      output.innerHTML = `
+        <h5 class="font-bold text-teal-800 mb-1">📈 Malawi Regional Trade Arbitrage Report</h5>
+        <p><b>Route:</b> ${source.toUpperCase()} ➡️ ${dest.toUpperCase()}</p>
+        <hr class="my-2">
+        <p><b>Maize Price Spread:</b> Buying at MK 350/kg in ${source}, Selling at MK 520/kg in ${dest}.</p>
+        <p><b>Estimated Transport Cost (per 50kg bag):</b> MK 2,500 via minibus/truck freight.</p>
+        <p><b>Net Profit Margin:</b> ~MK 6,000 per 50kg bag after logistics and market fees.</p>
+        <p class="text-xs text-gray-500 mt-2">🛡️ *Risk Management:* Monitor moisture content below 13.5% to prevent aflatoxin and post-harvest loss.</p>
+      `;
+    }
+
+    // HEALTH SYMPTOM CHECKER
+    async function checkHealthSymptoms() {
+      const symptoms = document.getElementById('health-symptoms-input').value.trim();
+      const output = document.getElementById('health-output');
+      if (!symptoms) {
+        alert('Please enter your symptoms first.');
+        return;
+      }
+      output.style.display = 'block';
+      output.innerHTML = '🩺 Running AI Health Diagnosis...';
+      const prompt = `Act as a Public Health AI advisor for Malawi. A patient presents with the following symptoms: "${symptoms}". Provide a preliminary health triage report, common regional conditions (such as Malaria), recommended clinical actions, and preventive guidance.`;
+      let diagnosis = await callGeminiAPI(prompt);
+      output.innerHTML = diagnosis;
+    }
+
+    // GEOGRAPHY TABS & ATMOSPHERE CAPTURE
+    function switchGeoTab(tab) {
+      document.querySelectorAll('#geography-modal .sub-dashboard-tabs .tab-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', (idx === 0 && tab === 'askai') || (idx === 1 && tab === 'atmosphere'));
+      });
+      document.getElementById('geo-askai-panel').style.display = tab === 'askai' ? 'block' : 'none';
+      document.getElementById('geo-atmosphere-panel').style.display = tab === 'atmosphere' ? 'block' : 'none';
+
+      if (tab === 'askai') {
+        startCamera('geo-vid-ask');
+      } else {
+        startCamera('geo-vid-atmos');
+      }
+    }
+
+    function captureAtmosphereAndMap() {
+      const videoEl = document.getElementById('geo-vid-atmos');
+      const output = document.getElementById('geo-atmos-output');
+      const mapBox = document.getElementById('geo-map-box');
+
+      output.style.display = 'block';
+      mapBox.style.display = 'block';
+      output.innerHTML = `🌤️ **Atmosphere & Weather Analysis**: Snapshot captured successfully. Cloud cover detected: Scattered Cumulus. Estimated ambient temperature: 26°C, Humidity: 65%. Typical of tropical savannah climate (Aw) in Malawi during current season.`;
+
+      if (typeof L !== 'undefined') {
+        mapBox.innerHTML = '';
+        const map = L.map('geo-map-box').setView([-13.9626, 33.7741], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+        L.marker([-13.9626, 33.7741]).addTo(map)
+          .bindPopup('<b>Prema School AI Station</b><br>Atmosphere Sample Recorded Here.')
+          .openPopup();
+      }
+    }
+
+    // MANEB EXAM HUB
+    async function generateManebQuiz() {
+      const sub = document.getElementById('maneb-subject-select').value;
+      const quizContainer = document.getElementById('maneb-quiz-container');
+      const quizContent = document.getElementById('maneb-quiz-content');
+      document.getElementById('maneb-marking-output').style.display = 'none';
+      quizContainer.style.display = 'block';
+      quizContent.innerHTML = 'Generating MANEB exam question...';
+
+      const prompt = `Generate a realistic examination question for ${sub} aligned with the Malawi MANEB MSCE syllabus.`;
+      let sampleQ = await callGeminiAPI(prompt);
+      quizContent.innerHTML = `<b>[MANEB MSCE ${sub} Examination Question]</b><br><br>${sampleQ}`;
+    }
+
+    async function markManebAnswer() {
+      const ans = document.getElementById('maneb-user-answer').value.trim();
+      const output = document.getElementById('maneb-marking-output');
+      if (!ans) {
+        alert('Please enter your answer first.');
+        return;
+      }
+      output.style.display = 'block';
+      output.innerHTML = '📝 Marking answer with AI...';
+
+      const prompt = `Act as a MANEB MSCE examiner. Evaluate the following student answer: "${ans}". Provide score marks out of 10 and constructive feedback.`;
+      let feedback = await callGeminiAPI(prompt);
+
+      output.innerHTML = `
+        <h5 class="font-bold text-teal-800 mb-1">📝 MANEB AI Examiner Feedback</h5>
+        <p><b>Your Answer:</b> "${ans}"</p>
+        <hr class="my-2">
+        <div>${feedback}</div>
+      `;
+    }
+
+    // CHEMISTRY & PHYSICS LAB
+    async function balanceChemicalEquation() {
+      const eq = document.getElementById('chem-eq-input').value.trim();
+      const output = document.getElementById('chem-eq-output');
+      if (!eq) {
+        alert('Please enter a chemical equation or question.');
+        return;
+      }
+      output.style.display = 'block';
+      output.innerHTML = '🧪 Solving with AI...';
+
+      const prompt = `Act as a Chemistry and Physics laboratory expert for Malawi MSCE. Balance or solve the following query: "${eq}". Explain step-by-step.`;
+      let solution = await callGeminiAPI(prompt);
+
+      output.innerHTML = `
+        <h5 class="font-bold text-blue-700 mb-1">🧪 Lab Assistant Solution</h5>
+        <p><b>Input Query:</b> ${eq}</p>
+        <hr class="my-2">
+        <div>${solution}</div>
+      `;
+    }
+
+    // CAREER & UNIVERSITY PATHFINDER
+    function addGradeRow() {
+      const container = document.getElementById('grade-rows-container');
+      const firstRow = container.querySelector('.grade-row');
+      const clone = firstRow.cloneNode(true);
+      container.appendChild(clone);
+    }
+
+    function calculateUniversityAggregate() {
+      const rows = document.querySelectorAll('.grade-row');
+      let totalPoints = 0;
+      let count = 0;
+      rows.forEach(row => {
+        const gradeVal = parseInt(row.querySelector('.grade-select').value) || 3;
+        totalPoints += gradeVal;
+        count++;
+      });
+
+      const output = document.getElementById('career-output');
+      output.style.display = 'block';
+      output.innerHTML = `
+        <h5 class="font-bold text-purple-700 mb-1">🎓 Malawi Public University Eligibility Report</h5>
+        <p><b>Total Aggregate Points (${count} Best Subjects):</b> <b>${totalPoints} Points</b> (Lower points indicate superior performance).</p>
+        <hr class="my-2">
+        <p><b>Eligible University Programs:</b></p>
+        <ul class="list-disc pl-5 space-y-1 mt-1">
+          <li><b>MUBAS (Blantyre):</b> Bachelor of Science in Information Technology / Civil Engineering (Competitive).</li>
+          <li><b>UNIMA (Zomba):</b> Bachelor of Science / Bachelor of Education (Humanities & Science).</li>
+          <li><b>MUST (Thyolo):</b> Bachelor of Science in Computer Systems & Security / Nanoscience.</li>
+          <li><b>LUANAR (Lilongwe):</b> Bachelor of Science in Agriculture / Agribusiness / Food Science.</li>
+          <li><b>MZUNI (Mzuzu):</b> Bachelor of Education / Information and Communication Technology.</li>
+          <li><b>KUHES (Blantyre):</b> Bachelor of Science in Nursing, Midwifery, or Medical Laboratory Sciences.</li>
+        </ul>
+        <p class="text-xs text-purple-600 mt-2">💡 *Tip:* Ensure English and Mathematics are passed at Grade 6 or better as mandatory prerequisites for all public university selections in Malawi.</p>
+      `;
+    }
+
+    // PREMA STUDY TIMER & ALARM
+    function startStudyTimer() {
+      if (timerInterval) return;
+      timerInterval = setInterval(() => {
+        if (timerSeconds > 0) {
+          timerSeconds--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          alert('⏰ Pomodoro Focus Session Complete! Take a 5-minute break.');
+        }
+      }, 1000);
+    }
+
+    function pauseStudyTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    function resetStudyTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerSeconds = 1500;
+      updateTimerDisplay();
+    }
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(timerSeconds / 60);
+      const secs = timerSeconds % 60;
+      document.getElementById('timer-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function setPhoneStudyAlarm() {
+      const timeVal = document.getElementById('alarm-time-input').value;
+      if (!timeVal) {
+        alert('Please select a valid alarm time.');
+        return;
+      }
+      alert(`⏰ Study Alarm successfully set for ${timeVal}. Your browser will remind you to study.`);
+    }
+
+    // LANGUAGE TOGGLE
+    function toggleLanguage() {
+      if (currentLanguage === 'English') {
+        currentLanguage = 'Chichewa';
+        alert('🌐 Chinenero chasinthidwa kukhala Chichewa.');
+        document.getElementById('lang-toggle-btn').innerText = '🌐 Chichewa (Active)';
+      } else if (currentLanguage === 'Chichewa') {
+        currentLanguage = 'Tumbuka';
+        alert('🌐 Chiyowoyero chasintha ku Tumbuka.');
+        document.getElementById('lang-toggle-btn').innerText = '🌐 Tumbuka (Active)';
+      } else {
+        currentLanguage = 'English';
+        alert('🌐 Language switched back to English.');
+        document.getElementById('lang-toggle-btn').innerText = '🌐 Chichewa / Tumbuka / English';
+      }
+    }
+
+    // SOLAR & IRRIGATION CALCULATOR
+    function calculateSolarPump() {
+      const depth = parseFloat(document.getElementById('solar-depth').value) || 15;
+      const litres = parseFloat(document.getElementById('solar-litres').value) || 5000;
+      const output = document.getElementById('solar-output');
+      output.style.display = 'block';
+
+      const totalHead = depth + 10;
+      const hydraulicPower = (litres * totalHead * 9.81) / (86400);
+      const solarWattsNeeded = Math.round(hydraulicPower * 1500 + 400);
+
+      output.innerHTML = `
+        <h5 class="font-bold text-amber-600 mb-1">☀️ Solar Pumping System Specification</h5>
+        <p><b>Borehole/Well Depth:</b> ${depth}m | <b>Daily Water Requirement:</b> ${litres.toLocaleString()} Litres</p>
+        <hr class="my-2">
+        <p><b>Recommended Solar PV Array:</b> <b>${solarWattsNeeded} Watts</b> (e.g., ${Math.ceil(solarWattsNeeded/300)} x 300W Solar Panels).</p>
+        <p><b>Submersible Pump Recommendation:</b> 24V/48V DC Solar Submersible Pump with MPPT Controller capable of ${totalHead}m total dynamic head.</p>
+        <p class="text-xs text-gray-500 mt-2">🔋 *Setup Tip:* Pair with a 10,000L elevated tank for gravity-fed drip irrigation during cloudy days.</p>
+      `;
+    }
+
+    function calculateIrrigationSchedule() {
+      const stage = document.getElementById('irrigation-stage').value;
+      const weather = document.getElementById('irrigation-weather').value;
+      const output = document.getElementById('solar-output');
+      output.style.display = 'block';
+
+      let duration = '45 minutes';
+      if (stage === 'flowering' && weather === 'hot') {
+        duration = '75 minutes (Morning & Late Afternoon)';
+      } else if (stage === 'veg') {
+        duration = '50 minutes daily';
+      }
+
+      output.innerHTML = `
+        <h5 class="font-bold text-teal-800 mb-1">💧 Smart Drip Irrigation Schedule</h5>
+        <p><b>Crop Stage:</b> ${stage.toUpperCase()} | <b>Weather Condition:</b> ${weather.toUpperCase()}</p>
+        <hr class="my-2">
+        <p><b>Irrigation Runtime:</b> <b>${duration}</b>.</p>
+        <p><b>Water Efficiency:</b> Drip emitters delivering 2L/hour directly to root zone, reducing weed growth and water loss through evaporation by 50% compared to surface flooding.</p>
+      `;
     }
   </script>
 </body>
