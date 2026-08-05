@@ -53,6 +53,10 @@
       position: relative; z-index: 10; color: #fff; font-size: 2.8rem; font-weight: 800;
       text-shadow: 0 4px 12px rgba(0,0,0,0.8); letter-spacing: 2px; text-align: center; padding: 0 20px;
     }
+    .intro-subtitle {
+      position: relative; z-index: 10; color: #38bdf8; font-size: 1.1rem; font-weight: 600;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8); margin-top: 10px; text-align: center; padding: 0 20px;
+    }
 
     /* AUTH UI */
     .auth-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
@@ -72,6 +76,7 @@
     #dashboard-view { display: none; }
     header { background: white; border-bottom: 1px solid #e2e8f0; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     header h1 { font-size: 1.3rem; color: var(--primary); }
+    .creator-banner { background: #f0fdf4; border-bottom: 1px solid #bbf7d0; padding: 8px 32px; font-size: 0.85rem; color: #166534; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; padding: 32px; max-width: 1400px; margin: 0 auto; }
     .subject-card { background: white; border-radius: 12px; padding: 24px 20px; border: 1px solid #e2e8f0; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; justify-content: space-between; min-height: 120px; }
     .subject-card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0,0,0,0.06); }
@@ -147,7 +152,10 @@
         <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1000&q=80" class="slide" alt="4">
         <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1000&q=80" class="slide" alt="5">
       </div>
-      <div class="intro-title">PREMA SCHOOL AI & AGRI-SMART MALAWI</div>
+      <div>
+        <div class="intro-title">PREMA SCHOOL AI & AGRI-SMART MALAWI</div>
+        <div class="intro-subtitle">Created by Precious Makanjira (Student, Mzuzu Government Secondary School) • Reducing Illiteracy & Boosting MSCE Pass Rates</div>
+      </div>
     </div>
 
     <!-- 2. AUTH SCREEN -->
@@ -187,6 +195,12 @@
           <button onclick="logout()" style="padding: 6px 12px; background: #ef4444; color: white; border: none; border-radius: 6px; cursor: pointer;">Logout</button>
         </div>
       </header>
+
+      <!-- CREATOR BANNER -->
+      <div class="creator-banner">
+        <span>💡 <b>Mission:</b> Reducing illiteracy and increasing Malawi MSCE pass rates.</span>
+        <span>🛠️ <b>Creator:</b> Precious Makanjira (Student, Mzuzu Government Secondary School)</span>
+      </div>
 
       <!-- UTILITY BAR -->
       <div class="utility-bar">
@@ -414,13 +428,15 @@
                 <option value="Geography">Geography</option>
                 <option value="History">History</option>
                 <option value="Chichewa">Chichewa</option>
+                <option value="French">French</option>
                 <option value="Business Studies">Business Studies</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Additional Mathematics">Additional Mathematics</option>
                 <option value="Wood Work">Wood Work</option>
                 <option value="Metal Work">Metal Work</option>
                 <option value="Technical Drawing">Technical Drawing</option>
-                <option value="Clothing and Textile">Clothing and Textile</option>
+                <option value="Home Economics">Home Economics</option>
+                <option value="Clothing and Textile (Ctex)">Clothing and Textile (Ctex)</option>
               </select>
             </div>
             <div style="display: flex; align-items: flex-end;">
@@ -480,6 +496,70 @@
           <div id="grade-rows-container" class="space-y-2 mb-3">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2 grade-row">
               <select class="w-full p-2 border rounded text-sm sub-select">
+                <option value="English">English</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Biology">Biology</option>
+                <option value="Physical Science">Physical Science</option>
+                <option value="Agriculture">Agriculture</option>
+                <option value="Geography">Geography</option>
+                <option value="History">History</option>
+                <option value="Chichewa">Chichewa</option>
+                <option value="French">French</option>
+                <option value="Business Studies">Business Studies</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Additional Mathematics">Additional Mathematics</option>
+                <option value="Wood Work">Wood Work</option>
+                <option value="Metal Work">Metal Work</option>
+                <option value="Technical Drawing">Technical Drawing</option>
+                <option value="Home Economics">Home Economics</option>
+                <option value="Clothing and Textile (Ctex)">Clothing and Textile (Ctex)</option>
+              </select>
+              <select class="w-full p-2 border rounded text-sm grade-select">
+                <option value="1">1 Point (Grade 1 - A)</option>
+                <option value="2">2 Points (Grade 2 - B)</option>
+                <option value="3">3 Points (Grade 3 - C)</option>
+                <option value="4">4 Points (Grade 4 - D)</option>
+                <option value="5">5 Points (Grade 5 - E)</option>
+                <option value="6">6 Points (Grade 6 - F)</option>
+                <option value="7">7 Points (Grade 7 - P)</option>
+                <option value="8">8 Points (Grade 8 - P)</option>
+                <option value="9">9 Points (Grade 9 - F)</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 grade-row">
+              <select class="w-full p-2 border rounded text-sm sub-select">
+                <option value="Mathematics">Mathematics</option>
+                <option value="English">English</option>
+                <option value="Biology">Biology</option>
+                <option value="Physical Science">Physical Science</option>
+                <option value="Agriculture">Agriculture</option>
+                <option value="Geography">Geography</option>
+                <option value="History">History</option>
+                <option value="Chichewa">Chichewa</option>
+                <option value="French">French</option>
+                <option value="Business Studies">Business Studies</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Additional Mathematics">Additional Mathematics</option>
+                <option value="Wood Work">Wood Work</option>
+                <option value="Metal Work">Metal Work</option>
+                <option value="Technical Drawing">Technical Drawing</option>
+                <option value="Home Economics">Home Economics</option>
+                <option value="Clothing and Textile (Ctex)">Clothing and Textile (Ctex)</option>
+              </select>
+              <select class="w-full p-2 border rounded text-sm grade-select">
+                <option value="1">1 Point (Grade 1 - A)</option>
+                <option value="2">2 Points (Grade 2 - B)</option>
+                <option value="3" selected>3 Points (Grade 3 - C)</option>
+                <option value="4">4 Points (Grade 4 - D)</option>
+                <option value="5">5 Points (Grade 5 - E)</option>
+                <option value="6">6 Points (Grade 6 - F)</option>
+                <option value="7">7 Points (Grade 7 - P)</option>
+                <option value="8">8 Points (Grade 8 - P)</option>
+                <option value="9">9 Points (Grade 9 - F)</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 grade-row">
+              <select class="w-full p-2 border rounded text-sm sub-select">
                 <option value="Biology">Biology</option>
                 <option value="English">English</option>
                 <option value="Mathematics">Mathematics</option>
@@ -488,13 +568,15 @@
                 <option value="Geography">Geography</option>
                 <option value="History">History</option>
                 <option value="Chichewa">Chichewa</option>
+                <option value="French">French</option>
                 <option value="Business Studies">Business Studies</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Additional Mathematics">Additional Mathematics</option>
                 <option value="Wood Work">Wood Work</option>
                 <option value="Metal Work">Metal Work</option>
                 <option value="Technical Drawing">Technical Drawing</option>
-                <option value="Clothing and Textile">Clothing and Textile</option>
+                <option value="Home Economics">Home Economics</option>
+                <option value="Clothing and Textile (Ctex)">Clothing and Textile (Ctex)</option>
               </select>
               <select class="w-full p-2 border rounded text-sm grade-select">
                 <option value="1">1 Point (Grade 1 - A)</option>
@@ -518,13 +600,15 @@
                 <option value="Geography">Geography</option>
                 <option value="History">History</option>
                 <option value="Chichewa">Chichewa</option>
+                <option value="French">French</option>
                 <option value="Business Studies">Business Studies</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Additional Mathematics">Additional Mathematics</option>
                 <option value="Wood Work">Wood Work</option>
                 <option value="Metal Work">Metal Work</option>
                 <option value="Technical Drawing">Technical Drawing</option>
-                <option value="Clothing and Textile">Clothing and Textile</option>
+                <option value="Home Economics">Home Economics</option>
+                <option value="Clothing and Textile (Ctex)">Clothing and Textile (Ctex)</option>
               </select>
               <select class="w-full p-2 border rounded text-sm grade-select">
                 <option value="1">1 Point (Grade 1 - A)</option>
@@ -668,15 +752,20 @@
       { name: 'Geography', tag: '🌍 Dual Dashboard & Map', highlight: '' },
       { name: 'History', tag: 'MSCE Humanities', highlight: '' },
       { name: 'Chichewa', tag: 'Chiyankhulo cha Kuno', highlight: '' },
+      { name: 'French', tag: 'MSCE Modern Language', highlight: '' },
       { name: 'Business Studies', tag: 'Entrepreneurship', highlight: '' },
       { name: 'Computer Science', tag: 'Coding & ICT Hub', highlight: '' },
+      { name: 'Wood Work', tag: 'Practical Technical Skills', highlight: '' },
+      { name: 'Metal Work', tag: 'Practical Engineering', highlight: '' },
+      { name: 'Technical Drawing', tag: 'Drafting & Design', highlight: '' },
+      { name: 'Home Economics', tag: 'Life Skills & Nutrition', highlight: '' },
+      { name: 'Clothing and Textile (Ctex)', tag: 'Textile & Garments', highlight: '' },
       { name: 'Community Health', tag: '🏥 Public Health & Triage', highlight: 'health-highlight' },
       { name: 'Additional Mathematics', tag: 'Advanced Calculus & Algebra', highlight: '' }
     ];
 
     // INITIALIZATION ON LOAD
     window.addEventListener('DOMContentLoaded', () => {
-      // Check stored session
       const savedUser = localStorage.getItem('prema_current_user');
       if (savedUser) {
         currentUser = JSON.parse(savedUser);
@@ -684,7 +773,6 @@
         document.getElementById('auth-view').style.display = 'none';
         showDashboard();
       } else {
-        // Show slideshow intro for 4.5 seconds then reveal auth
         setTimeout(() => {
           const intro = document.getElementById('intro-screen');
           intro.classList.add('hidden');
@@ -742,7 +830,6 @@
         currentUser = { name: nameInput || 'Student', email: email };
         localStorage.setItem('prema_current_user', JSON.stringify(currentUser));
       } else {
-        // Simulated login check
         currentUser = { name: email.split('@')[0], email: email };
         localStorage.setItem('prema_current_user', JSON.stringify(currentUser));
       }
@@ -797,10 +884,9 @@
         document.getElementById('universal-title').innerText = `${subName} - MSCE AI Tutor`;
         openModal('universal-modal');
         startCamera('univ-video');
-        // Add welcome message if chat is empty
         const chatMsgs = document.getElementById('universal-chat-msgs');
         if (chatMsgs.children.length === 0) {
-          appendBubble(chatMsgs, `Muli bwanji! I am your ${subName} AI tutor aligned with the Malawi MSCE syllabus. Ask any question via text, voice, or camera snapshot!`, 'ai', subName);
+          appendBubble(chatMsgs, `Muli bwanji! I am your ${subName} AI tutor aligned with the Malawi MSCE syllabus, created by Precious Makanjira from Mzuzu Government Secondary School to reduce illiteracy and boost MSCE pass rates. Ask any question via text, voice, or camera snapshot!`, 'ai', subName);
         }
       }
     }
@@ -853,7 +939,6 @@
       chatMsgs.appendChild(bubble);
       chatMsgs.scrollTop = chatMsgs.scrollHeight;
 
-      // Real Gemini API Call with Image
       const base64Data = dataUrl.split(',')[1];
       let aiReply = await callGeminiAPI(`Analyze this image for ${subjectName} aligned with the Malawi MSCE syllabus.`, base64Data);
       appendBubble(chatMsgs, aiReply, 'ai', subjectName);
@@ -902,7 +987,7 @@
       recognition.start();
     }
 
-    // CHAT ENGINE & REAL GEMINI API INTEGRATION
+    // CHAT ENGINE & GEMINI 3.5 FLASH API INTEGRATION
     async function sendChat(inputId, chatMsgsId, subjectName) {
       const inputEl = document.getElementById(inputId);
       const chatMsgs = document.getElementById(chatMsgsId);
@@ -912,14 +997,13 @@
       appendBubble(chatMsgs, text, 'user');
       inputEl.value = '';
 
-      // Typing indicator placeholder
       const loadingBubble = document.createElement('div');
       loadingBubble.className = 'chat-bubble ai';
       loadingBubble.innerHTML = '🤖 Thinking...';
       chatMsgs.appendChild(loadingBubble);
       chatMsgs.scrollTop = chatMsgs.scrollHeight;
 
-      const prompt = `You are an expert AI tutor for Malawi secondary school students studying ${subjectName} under the MANEB MSCE curriculum. Answer the following student question accurately and helpfully: ${text}`;
+      const prompt = `You are an expert AI tutor for Malawi secondary school students studying ${subjectName} under the MANEB MSCE curriculum. This app was created by Precious Makanjira, a student at Mzuzu Government Secondary School, with the core mission of reducing illiteracy levels and increasing Malawi MSCE pass rates. Answer the following student question accurately and helpfully: ${text}`;
       let reply = await callGeminiAPI(prompt);
 
       chatMsgs.removeChild(loadingBubble);
@@ -931,7 +1015,8 @@
         return "⚠️ Please paste your Google AI Studio API key into the 'GEMINI_API_KEY' variable at the top of the script section!";
       }
 
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+      // Updated to gemini-3.5-flash endpoint
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${GEMINI_API_KEY}`;
       
       let parts = [{ text: promptText }];
       if (base64Image) {
